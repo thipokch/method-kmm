@@ -3,19 +3,8 @@ plugins {
     id("com.android.library")
     /** Tools **/
     id("com.github.ben-manes.versions") // Dependency Update Notice
-    id("io.gitlab.arturbosch.detekt") // Code Analysis + Formatting
-}
-
-dependencies {
-    detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:1.21.0") // Code Formatting
-}
-
-detekt {
-    source = files(
-        "src/androidMain/kotlin",
-        "src/commonMain/kotlin",
-        "src/iOSMain/kotlin",
-    )
+    id("io.gitlab.arturbosch.detekt") // Kotlin Analysis + Formatting
+    id("org.sonarqube") // Code Analysis
 }
 
 kotlin {
@@ -67,5 +56,29 @@ android {
     defaultConfig {
         minSdk = 21
         targetSdk = 32
+    }
+}
+
+//
+// Code Analysis Config
+//
+
+dependencies {
+    detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:1.21.0") // Code Formatting
+}
+
+detekt {
+    source = files(
+        "src/androidMain/kotlin",
+        "src/commonMain/kotlin",
+        "src/iOSMain/kotlin",
+    )
+}
+
+sonarqube {
+    properties {
+        property("sonar.projectKey", "thipokch_method")
+        property("sonar.organization", "thipokch")
+        property("sonar.host.url", "https://sonarcloud.io")
     }
 }
