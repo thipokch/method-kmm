@@ -35,6 +35,6 @@ tasks.register("setupGitHooks") {
 //
 
 gradle.taskGraph.afterTask {
- Runtime.getRuntime().exec("chmod -R +x .githook/")
- Runtime.getRuntime().exec("git config core.hooksPath .githook/")
+    Runtime.getRuntime().exec("chmod -R +x .githook/")
+    Runtime.getRuntime().exec("git config core.hooksPath .githook/")
 }
