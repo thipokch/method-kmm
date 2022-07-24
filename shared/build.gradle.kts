@@ -5,14 +5,15 @@
 plugins {
     id("org.jetbrains.kotlin.multiplatform")
     id("com.android.library")
-    /** Tools **/
+    /** DevOps Tooling **/
     id("com.github.ben-manes.versions") version "0.42.0"        // Dependency Update Notice
     id("io.gitlab.arturbosch.detekt")   version "1.21.0"        // Kotlin Analysis + Lint
     id("org.sonarqube")                 version "3.4.0.2513"    // Code Analysis Platform
+    id("org.jetbrains.kotlinx.kover")   version "0.5.0"         // Test Coverage
 }
 
 //
-// Target Configuration
+// Multiplatform Targets
 //
 
 kotlin {
@@ -68,7 +69,7 @@ android {
 }
 
 //
-// Code Analysis Config
+// DevOps Tooling Config
 //
 
 dependencies {
@@ -89,4 +90,8 @@ sonarqube {
         property("sonar.organization", "thipokch")
         property("sonar.host.url", "https://sonarcloud.io")
     }
+}
+
+tasks.build {
+    dependsOn(tasks.koverVerify)    // Test coverage on build for SonarCloud
 }
