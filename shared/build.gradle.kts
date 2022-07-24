@@ -1,11 +1,19 @@
+//
+// Gradle Plugins
+//
+
 plugins {
     id("org.jetbrains.kotlin.multiplatform")
     id("com.android.library")
     /** Tools **/
-    id("com.github.ben-manes.versions") // Dependency Update Notice
-    id("io.gitlab.arturbosch.detekt") // Kotlin Analysis + Formatting
-    id("org.sonarqube") // Code Analysis
+    id("com.github.ben-manes.versions") version "0.42.0"        // Dependency Update Notice
+    id("io.gitlab.arturbosch.detekt")   version "1.21.0"        // Kotlin Analysis + Lint
+    id("org.sonarqube")                 version "3.4.0.2513"    // Code Analysis Platform
 }
+
+//
+// Target Configuration
+//
 
 kotlin {
     android()
