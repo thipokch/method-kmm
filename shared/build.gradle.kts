@@ -77,21 +77,40 @@ dependencies {
 }
 
 detekt {
+    parallel = true
     source = files(
         "src/androidMain/kotlin",
         "src/commonMain/kotlin",
-        "src/iOSMain/kotlin",
+        "src/iosMain/kotlin",
     )
+}
+
+tasks.sonarqube {
+    dependsOn(tasks.koverVerify)
 }
 
 sonarqube {
     properties {
+        property("sonar.projectName", "method")
         property("sonar.projectKey", "thipokch_method")
         property("sonar.organization", "thipokch")
         property("sonar.host.url", "https://sonarcloud.io")
-    }
-}
 
-tasks.build {
-    dependsOn(tasks.koverVerify)    // Test coverage on build for SonarCloud
+        // Code Reports
+        property("sonar.kotlin.detekt.reportPaths", buildDir.resolve("reports/detekt/detekt.xml"))
+        property("sonar.coverage.jacoco.xmlReportPaths", buildDir.resolve("reports/kover/report.xml"))
+
+        // Multiplatform Targets
+        property("sonar.sources", listOf(
+            "src/commonMain/kotlin/",
+            "src/androidMain/kotlin/",
+            "src/iosMain/kotlin/"
+        ).joinToString(","))
+
+        property("sonar.tests", listOf(
+            "src/commonTest/kotlin/",
+            "src/androidTest/kotlin/",
+            "src/iosTest/kotlin/",
+        ).joinToString(","))
+    }
 }
