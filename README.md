@@ -1,5 +1,4 @@
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=thipokch_method&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=thipokch_method)
-[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fthipokch%2Fmethod.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fthipokch%2Fmethod?ref=badge_shield)
 
 # method
 
