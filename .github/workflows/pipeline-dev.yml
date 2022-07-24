@@ -33,8 +33,26 @@ jobs:
           key: ${{ runner.os }}-sonar
           restore-keys: ${{ runner.os }}-sonar
 
-      - name: Gradle build
+      - name: Configure Gradle
+        run: ./gradlew help  # Initial gradle configuration, install dependencies, etc
+
+      - name: Build project
+        run: ./gradlew assemble --stacktrace
+
+      - name: Run tests
+        run: ./gradlew test --stacktrace
+
+      - name: Final checks
+        run: ./gradlew check --stacktrace
+
+      - name: Run Sonar scan
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: ./gradlew build sonarqube --info
+        run: ./gradlew sonarqube --info
+
+      - name: Run FOSSA scan and upload build data
+        uses: fossa-contrib/fossa-action@v1
+        with:
+          fossa-api-key: ${{ secrets.FOSSA_TOKEN }}
+          github-token: ${{ github.token }}
