@@ -30,7 +30,7 @@
     		058557BA273AAA24004C7B11 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 058557D8273AAEEB004C7B11 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
     		2152FB032600AC8F00CF470E /* iOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOSApp.swift; sourceTree = "<group>"; };
-    		7555FF7B242A565900829871 /* iosApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iosApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+    		7555FF7B242A565900829871 /* darwinApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = darwinApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
     		7555FF82242A565900829871 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
     		7555FF8C242A565B00829871 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
     /* End PBXFileReference section */
@@ -57,7 +57,7 @@
     		7555FF72242A565900829871 = {
     			isa = PBXGroup;
     			children = (
-    				7555FF7D242A565900829871 /* iosApp */,
+    				7555FF7D242A565900829871 /* darwinApp */,
     				7555FF7C242A565900829871 /* Products */,
     				7555FFB0242A642200829871 /* Frameworks */,
     			);
@@ -66,12 +66,12 @@
     		7555FF7C242A565900829871 /* Products */ = {
     			isa = PBXGroup;
     			children = (
-    				7555FF7B242A565900829871 /* iosApp.app */,
+    				7555FF7B242A565900829871 /* darwinApp.app */,
     			);
     			name = Products;
     			sourceTree = "<group>";
     		};
-    		7555FF7D242A565900829871 /* iosApp */ = {
+    		7555FF7D242A565900829871 /* darwinApp */ = {
     			isa = PBXGroup;
     			children = (
     				058557BA273AAA24004C7B11 /* Assets.xcassets */,
@@ -80,7 +80,7 @@
     				2152FB032600AC8F00CF470E /* iOSApp.swift */,
 		058557D7273AAEEB004C7B11 /* Preview Content */,
     			);
-    			path = iosApp;
+    			path = darwinApp;
     			sourceTree = "<group>";
     		};
     		7555FFB0242A642200829871 /* Frameworks */ = {
@@ -93,9 +93,9 @@
     /* End PBXGroup section */
 
     /* Begin PBXNativeTarget section */
-    		7555FF7A242A565900829871 /* iosApp */ = {
+    		7555FF7A242A565900829871 /* darwinApp */ = {
     			isa = PBXNativeTarget;
-    			buildConfigurationList = 7555FFA5242A565B00829871 /* Build configuration list for PBXNativeTarget "iosApp" */;
+    			buildConfigurationList = 7555FFA5242A565B00829871 /* Build configuration list for PBXNativeTarget "darwinApp" */;
     			buildPhases = (
     				7555FFB5242A651A00829871 /* ShellScript */,
     				7555FF77242A565900829871 /* Sources */,
@@ -107,9 +107,9 @@
     			);
     			dependencies = (
     			);
-    			name = iosApp;
-    			productName = iosApp;
-    			productReference = 7555FF7B242A565900829871 /* iosApp.app */;
+    			name = darwinApp;
+    			productName = darwinApp;
+    			productReference = 7555FF7B242A565900829871 /* darwinApp.app */;
     			productType = "com.apple.product-type.application";
     		};
     /* End PBXNativeTarget section */
@@ -127,7 +127,7 @@
     					};
     				};
     			};
-    			buildConfigurationList = 7555FF76242A565900829871 /* Build configuration list for PBXProject "iosApp" */;
+    			buildConfigurationList = 7555FF76242A565900829871 /* Build configuration list for PBXProject "darwinApp" */;
     			compatibilityVersion = "Xcode 9.3";
     			developmentRegion = en;
     			hasScannedForEncodings = 0;
@@ -140,7 +140,7 @@
     			projectDirPath = "";
     			projectRoot = "";
     			targets = (
-    				7555FF7A242A565900829871 /* iosApp */,
+    				7555FF7A242A565900829871 /* darwinApp */,
     			);
     		};
     /* End PBXProject section */
@@ -311,10 +311,10 @@
     			buildSettings = {
     				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
     				CODE_SIGN_STYLE = Automatic;
-		DEVELOPMENT_ASSET_PATHS = "\"iosApp/Preview Content\"";
+		DEVELOPMENT_ASSET_PATHS = "\"darwinApp/Preview Content\"";
     				ENABLE_PREVIEWS = YES;
     				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../shared/build/xcode-frameworks/$(CONFIGURATION)/$(SDK_NAME)";
-    				INFOPLIST_FILE = iosApp/Info.plist;
+    				INFOPLIST_FILE = darwinApp/Info.plist;
     				LD_RUNPATH_SEARCH_PATHS = (
     					"$(inherited)",
     					"@executable_path/Frameworks",
@@ -324,7 +324,7 @@
     					"-framework",
     					shared,
     				);
-    				PRODUCT_BUNDLE_IDENTIFIER = orgIdentifier.iosApp;
+    				PRODUCT_BUNDLE_IDENTIFIER = orgIdentifier.darwinApp;
     				PRODUCT_NAME = "$(TARGET_NAME)";
     				SWIFT_VERSION = 5.0;
     				TARGETED_DEVICE_FAMILY = "1,2";
@@ -336,10 +336,10 @@
     			buildSettings = {
     				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
     				CODE_SIGN_STYLE = Automatic;
-    				DEVELOPMENT_ASSET_PATHS = "\"iosApp/Preview Content\"";
+    				DEVELOPMENT_ASSET_PATHS = "\"darwinApp/Preview Content\"";
     				ENABLE_PREVIEWS = YES;
     				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../shared/build/xcode-frameworks/$(CONFIGURATION)/$(SDK_NAME)";
-    				INFOPLIST_FILE = iosApp/Info.plist;
+    				INFOPLIST_FILE = darwinApp/Info.plist;
     				LD_RUNPATH_SEARCH_PATHS = (
     					"$(inherited)",
     					"@executable_path/Frameworks",
@@ -349,7 +349,7 @@
     					"-framework",
     					shared,
     				);
-    				PRODUCT_BUNDLE_IDENTIFIER = orgIdentifier.iosApp;
+    				PRODUCT_BUNDLE_IDENTIFIER = orgIdentifier.darwinApp;
     				PRODUCT_NAME = "$(TARGET_NAME)";
     				SWIFT_VERSION = 5.0;
     				TARGETED_DEVICE_FAMILY = "1,2";
@@ -359,7 +359,7 @@
     /* End XCBuildConfiguration section */
 
     /* Begin XCConfigurationList section */
-    		7555FF76242A565900829871 /* Build configuration list for PBXProject "iosApp" */ = {
+    		7555FF76242A565900829871 /* Build configuration list for PBXProject "darwinApp" */ = {
     			isa = XCConfigurationList;
     			buildConfigurations = (
     				7555FFA3242A565B00829871 /* Debug */,
@@ -368,7 +368,7 @@
     			defaultConfigurationIsVisible = 0;
     			defaultConfigurationName = Release;
     		};
-    		7555FFA5242A565B00829871 /* Build configuration list for PBXNativeTarget "iosApp" */ = {
+    		7555FFA5242A565B00829871 /* Build configuration list for PBXNativeTarget "darwinApp" */ = {
     			isa = XCConfigurationList;
     			buildConfigurations = (
     				7555FFA6242A565B00829871 /* Debug */,

@@ -41,7 +41,7 @@ kotlin {
         val iosX64Main by getting
         val iosArm64Main by getting
         val iosSimulatorArm64Main by getting
-        val iosMain by creating {
+        val darwinMain by creating {
             dependsOn(commonMain)
             iosX64Main.dependsOn(this)
             iosArm64Main.dependsOn(this)
@@ -50,7 +50,7 @@ kotlin {
         val iosX64Test by getting
         val iosArm64Test by getting
         val iosSimulatorArm64Test by getting
-        val iosTest by creating {
+        val darwinTest by creating {
             dependsOn(commonTest)
             iosX64Test.dependsOn(this)
             iosArm64Test.dependsOn(this)
@@ -104,13 +104,13 @@ sonarqube {
         property("sonar.sources", listOf(
             "src/commonMain/kotlin/",
             "src/androidMain/kotlin/",
-            "src/iosMain/kotlin/"
+            "src/darwinMain/kotlin/"
         ).joinToString(","))
 
         property("sonar.tests", listOf(
             "src/commonTest/kotlin/",
             "src/androidTest/kotlin/",
-            "src/iosTest/kotlin/",
+            "src/darwinTest/kotlin/",
         ).joinToString(","))
     }
 }
