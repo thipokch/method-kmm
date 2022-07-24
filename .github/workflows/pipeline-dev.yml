@@ -51,6 +51,9 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: ./gradlew sonarqube --info
 
+      - name: Invalidating Configuration Cache due to fossas/fossa-cli#872
+        run: rm -rf .gradle/configuration-cache
+
       - name: Run FOSSA scan and upload build data
         uses: fossa-contrib/fossa-action@v1
         with:
