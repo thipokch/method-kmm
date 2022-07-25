@@ -9,7 +9,7 @@ plugins {
     id("com.github.ben-manes.versions") version "0.42.0"        // Dependency Update Notice
     id("io.gitlab.arturbosch.detekt")   version "1.21.0"        // Kotlin Analysis + Lint
     id("org.sonarqube")                 version "3.4.0.2513"    // Code Analysis Platform
-    id("org.jetbrains.kotlinx.kover")   version "0.5.0"         // Test Coverage
+    id("org.jetbrains.kotlinx.kover")   version "0.5.1"         // Test Coverage
 }
 
 //
