@@ -21,20 +21,20 @@ allprojects {
 // Tasks
 //
 
-tasks.register("clean", Delete::class) {
-    delete(rootProject.buildDir)
-}
-
-tasks.register("setupGitHooks") {
-    Runtime.getRuntime().exec("chmod -R +x .githook/")
-    Runtime.getRuntime().exec("git config core.hooksPath .githook/")
+@Suppress("UnusedPrivateMember")
+tasks {
+    val setupGitHooks by creating {
+        run("chmod -R +x .githook/")
+        run("git config core.hooksPath .githook/")
+    }
 }
 
 //
-// Lifecycle Hooks
+// Helpers
 //
 
-gradle.taskGraph.afterTask {
-    Runtime.getRuntime().exec("chmod -R +x .githook/")
-    Runtime.getRuntime().exec("git config core.hooksPath .githook/")
+fun Task.run(command:String) = doLast {
+    exec {
+        commandLine(command.split(" "))
+    }
 }
