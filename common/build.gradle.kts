@@ -26,7 +26,7 @@ kotlin {
         iosSimulatorArm64()
     ).forEach {
         it.binaries.framework {
-            baseName = "shared"
+            baseName = "common"
         }
     }
 
@@ -82,7 +82,7 @@ detekt {
     source = files(
         "src/androidMain/kotlin",
         "src/commonMain/kotlin",
-        "src/iosMain/kotlin",
+        "src/darwinMain/kotlin",
     )
 }
 

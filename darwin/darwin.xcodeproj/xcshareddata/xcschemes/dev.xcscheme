@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "7555FF7A242A565900829871"
-               BuildableName = "darwinApp.app"
-               BlueprintName = "darwinApp"
-               ReferencedContainer = "container:darwinApp.xcodeproj">
+               BuildableName = "darwin.app"
+               BlueprintName = "darwin"
+               ReferencedContainer = "container:darwin.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -45,9 +45,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "7555FF7A242A565900829871"
-            BuildableName = "darwinApp.app"
-            BlueprintName = "darwinApp"
-            ReferencedContainer = "container:darwinApp.xcodeproj">
+            BuildableName = "darwin.app"
+            BlueprintName = "darwin"
+            ReferencedContainer = "container:darwin.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -62,9 +62,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "7555FF7A242A565900829871"
-            BuildableName = "darwinApp.app"
-            BlueprintName = "darwinApp"
-            ReferencedContainer = "container:darwinApp.xcodeproj">
+            BuildableName = "darwin.app"
+            BlueprintName = "darwin"
+            ReferencedContainer = "container:darwin.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

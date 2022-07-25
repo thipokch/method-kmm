@@ -5,7 +5,7 @@ plugins {
 }
 
 xcodebuild {
-    target = "darwinApp"
+    target = "darwin"
 }
 
 tasks {
