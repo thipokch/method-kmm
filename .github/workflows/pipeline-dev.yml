@@ -95,7 +95,23 @@ jobs:
           FIREBASE_APPID_WEB_DEV: ${{ secrets.FIREBASE_APPID_WEB_DEV }}
           FIREBASE_APPID_WEB_PRE: ${{ secrets.FIREBASE_APPID_WEB_PRE }}
           FIREBASE_APPID_WEB_PRD: ${{ secrets.FIREBASE_APPID_WEB_PRD }}
-        run: ./gradlew build sonarqube --info --stacktrace
+        run: ./gradlew build sonarqube --scan --info --stacktrace
+
+      - name: Setup sonarqube
+        uses: warchant/setup-sonar-scanner@v3
+
+      - name: Analyze Darwin with SonarScanner
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: |
+          sonar-scanner \
+          -Dsonar.organization=thipokch \
+          -Dsonar.projectName=method.darwin \
+          -Dsonar.projectKey=method.darwin \
+          -Dsonar.projectBaseDir=darwin/ \
+          -Dsonar.verbose=true \
+          -Dsonar.host.url=https://sonarcloud.io
 
       - name: Clean up keychain and provisioning profile
         if: ${{ always() }}
