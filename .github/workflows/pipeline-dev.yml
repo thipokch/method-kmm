@@ -26,6 +26,11 @@ jobs:
       - name: Setting up Gradle.
         uses: ./.github/actions/setup
 
+      - name: Setting up Firebase CLI
+        uses: pocket-apps/action-setup-firebase@v2
+        with:
+          firebase-token: ${{ secrets.FIREBASE_TOKEN }}
+
       - name: Cache SonarCloud packages
         uses: actions/cache@v1
         with:
