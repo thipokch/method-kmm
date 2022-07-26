@@ -33,6 +33,46 @@ jobs:
           key: ${{ runner.os }}-sonar
           restore-keys: ${{ runner.os }}-sonar
 
+      - name: Install the Apple certificate
+        env:
+          APPLE_DEV_CERTIFICATE: ${{ secrets.APPLE_DEV_CERTIFICATE }}
+          APPLE_DEV_CERTIFICATE_PASSWORD: ${{ secrets.APPLE_DEV_CERTIFICATE_PASSWORD }}
+          APPLE_DIS_CERTIFICATE: ${{ secrets.APPLE_DIS_CERTIFICATE }}
+          APPLE_DIS_CERTIFICATE_PASSWORD: ${{ secrets.APPLE_DIS_CERTIFICATE_PASSWORD }}
+          KEYCHAIN_PASSWORD: ${{ secrets.KEYCHAIN_PASSWORD }}
+          DEV_CERTIFICATE_PATH: ${{ runner.temp }}/dev_cer.p12
+          DIS_CERTIFICATE_PATH: ${{ runner.temp }}/dis_cer.p12
+          KEYCHAIN_PATH: ${{ runner.temp }}/app-signing.keychain-db
+        run: |
+          # import certificate from secrets
+          echo -n "$APPLE_DEV_CERTIFICATE" | base64 --decode --output $DEV_CERTIFICATE_PATH
+          echo -n "$APPLE_DIS_CERTIFICATE" | base64 --decode --output $DIS_CERTIFICATE_PATH
+
+          # create temporary keychain
+          security create-keychain -p "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
+          security set-keychain-settings -lut 21600 $KEYCHAIN_PATH
+          security unlock-keychain -p "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
+
+          # import certificate to keychain
+          security import $DEV_CERTIFICATE_PATH -P "$APPLE_DEV_CERTIFICATE_PASSWORD" -A -t cert -f pkcs12 -k $KEYCHAIN_PATH
+          security import $DIS_CERTIFICATE_PATH -P "$APPLE_DIS_CERTIFICATE_PASSWORD" -A -t cert -f pkcs12 -k $KEYCHAIN_PATH
+          security list-keychain -d user -s $KEYCHAIN_PATH
+
+      - name: Install the provisioning profile
+        env:
+          DEV_PROFILE_PATH: ${{ runner.temp }}/${{ secrets.APPLE_DEV_PROVISIONING_PROFILE_UUID }}.mobileprovision
+          DIS_PROFILE_PATH: ${{ runner.temp }}/${{ secrets.APPLE_DIS_PROVISIONING_PROFILE_UUID }}.mobileprovision
+        run: |
+          # import provisioning profile from secrets
+          echo -n "${{ secrets.APPLE_DEV_PROVISIONING_PROFILE }}" | base64 --decode --output $DEV_PROFILE_PATH
+          echo -n "${{ secrets.APPLE_DIS_PROVISIONING_PROFILE }}" | base64 --decode --output $DIS_PROFILE_PATH
+          ls -l
+
+          # apply provisioning profile
+          mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
+          cp $DEV_PROFILE_PATH ~/Library/MobileDevice/Provisioning\ Profiles
+          cp $DIS_PROFILE_PATH ~/Library/MobileDevice/Provisioning\ Profiles
+
       - name: Gradle build
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
@@ -50,4 +90,14 @@ jobs:
           FIREBASE_APPID_WEB_DEV: ${{ secrets.FIREBASE_APPID_WEB_DEV }}
           FIREBASE_APPID_WEB_PRE: ${{ secrets.FIREBASE_APPID_WEB_PRE }}
           FIREBASE_APPID_WEB_PRD: ${{ secrets.FIREBASE_APPID_WEB_PRD }}
-        run: ./gradlew build sonarqube --info
+        run: ./gradlew build sonarqube --info --stacktrace
+
+      - name: Clean up keychain and provisioning profile
+        if: ${{ always() }}
+        run: |
+          security delete-keychain $RUNNER_TEMP/app-signing.keychain-db
+
+          # list provisioning profile
+          ls -l ~/Library/MobileDevice/Provisioning\ Profiles
+          rm ~/Library/MobileDevice/Provisioning\ Profiles/${{ secrets.APPLE_DEV_PROVISIONING_PROFILE_UUID }}.mobileprovision
+          rm ~/Library/MobileDevice/Provisioning\ Profiles/${{ secrets.APPLE_DIS_PROVISIONING_PROFILE_UUID }}.mobileprovision
