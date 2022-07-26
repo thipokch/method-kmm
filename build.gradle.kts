@@ -11,7 +11,9 @@ buildscript {
 }
 
 plugins {
-    id("co.uzzu.dotenv.gradle")     version "2.0.0"     // .env
+    /** DevOps Tooling **/
+    id("com.github.ben-manes.versions") version "0.42.0"        // Dependency Update Notice
+    id("co.uzzu.dotenv.gradle")         version "2.0.0"         // .env
 }
 
 allprojects {
@@ -27,9 +29,13 @@ allprojects {
 
 @Suppress("UnusedPrivateMember")
 tasks {
+//    val clean by getting {
+//        play("git clean -x -d -f -q")
+//    }
+
     val setupGitHooks by creating {
-        run("chmod -R +x .githook/")
-        run("git config core.hooksPath .githook/")
+        play("chmod -R +x .githook/")
+        play("git config core.hooksPath .githook/")
     }
 }
 
@@ -37,7 +43,7 @@ tasks {
 // Helpers
 //
 
-fun Task.run(command:String) = doLast {
+fun Task.play(command:String) = doLast {
     exec {
         commandLine(command.split(" "))
     }

@@ -7,7 +7,9 @@ pluginManagement {
 }
 
 rootProject.name = "Method"
-include(":common")
-include(":android")
-include(":darwin")
-include(":web")
+include(
+    ":common",
+    ":android",
+    ":darwin",
+    ":web"
+)

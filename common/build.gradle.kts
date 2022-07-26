@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.plugin.mpp.apple.XCFramework
+
 //
 // Gradle Plugins
 //
@@ -7,9 +9,8 @@ plugins {
     id("com.android.library")
 
     /** DevOps Tooling **/
-    id("com.github.ben-manes.versions") version "0.42.0"        // Dependency Update Notice
-    id("io.gitlab.arturbosch.detekt")   version "1.21.0"        // Kotlin Analysis + Lint
     id("org.sonarqube")                 version "3.4.0.2513"    // Code Analysis Platform
+    id("io.gitlab.arturbosch.detekt")   version "1.21.0"        // Kotlin Analysis + Lint
     id("org.jetbrains.kotlinx.kover")   version "0.5.0"         // Test Coverage
 }
 
@@ -17,33 +18,77 @@ plugins {
 // Multiplatform Targets
 //
 
+@Suppress("UnusedPrivateMember")
 kotlin {
-    android()
-    
-    listOf(
-        iosX64(),
-        iosArm64(),
+    targets {
+        android()
+        iosX64()
+        iosArm64()
         iosSimulatorArm64()
-    ).forEach {
-        it.binaries.framework {
-            baseName = "common"
+        jvm {
+            compilations.all {
+                kotlinOptions.jvmTarget = "1.8"
+            }
+        }
+        js(IR) {
+            binaries.executable()
+            nodejs()
+        }
+
+        val xcf = XCFramework("common")
+        val darwinTargets = listOf(
+            iosX64(),
+            iosArm64(),
+            iosSimulatorArm64()
+        )
+        darwinTargets.forEach {
+            it.binaries.framework {
+                baseName = "common"
+                isStatic = true
+                freeCompilerArgs += "-Xno-objc-generics"
+                xcf.add(this)
+            }
         }
     }
 
+
     sourceSets {
-        val commonMain by getting
+        val commonMain by getting {
+
+        }
         val commonTest by getting {
             dependencies {
                 implementation("org.jetbrains.kotlin:kotlin-test:1.7.10")
             }
         }
-        val androidMain by getting
-        val androidTest by getting
+
+        val androidMain by getting {
+            dependsOn(commonMain)
+        }
+        val androidTest by getting {
+            dependsOn(commonTest)
+        }
+
+        val jsMain by getting {
+            dependsOn(commonMain)
+        }
+        val jsTest by getting {
+            dependsOn(commonTest)
+        }
+
+        val jvmMain by getting {
+            dependsOn(commonMain)
+        }
+        val jvmTest by getting {
+            dependsOn(commonTest)
+        }
+
         val iosX64Main by getting
         val iosArm64Main by getting
         val iosSimulatorArm64Main by getting
         val darwinMain by creating {
             dependsOn(commonMain)
+
             iosX64Main.dependsOn(this)
             iosArm64Main.dependsOn(this)
             iosSimulatorArm64Main.dependsOn(this)
@@ -53,6 +98,7 @@ kotlin {
         val iosSimulatorArm64Test by getting
         val darwinTest by creating {
             dependsOn(commonTest)
+
             iosX64Test.dependsOn(this)
             iosArm64Test.dependsOn(this)
             iosSimulatorArm64Test.dependsOn(this)
@@ -80,9 +126,11 @@ dependencies {
 detekt {
     parallel = true
     source = files(
-        "src/androidMain/kotlin",
-        "src/commonMain/kotlin",
-        "src/darwinMain/kotlin",
+        "src/androidMain/kotlin/",
+        "src/commonMain/kotlin/",
+        "src/darwinMain/kotlin/",
+        "src/jsMain/kotlin/",
+        "src/jvmMain/kotlin/",
     )
 }
 
@@ -92,8 +140,8 @@ tasks.sonarqube {
 
 sonarqube {
     properties {
-        property("sonar.projectName", "method")
-        property("sonar.projectKey", "thipokch_method")
+        property("sonar.projectName", "method.common")
+        property("sonar.projectKey", "method.common")
         property("sonar.organization", "thipokch")
         property("sonar.host.url", "https://sonarcloud.io")
 
@@ -103,15 +151,19 @@ sonarqube {
 
         // Multiplatform Targets
         property("sonar.sources", listOf(
-            "src/commonMain/kotlin/",
             "src/androidMain/kotlin/",
-            "src/darwinMain/kotlin/"
+            "src/commonMain/kotlin/",
+            "src/darwinMain/kotlin/",
+            "src/jsMain/kotlin/",
+            "src/jvmMain/kotlin/",
         ).joinToString(","))
 
         property("sonar.tests", listOf(
-            "src/commonTest/kotlin/",
             "src/androidTest/kotlin/",
+            "src/commonTest/kotlin/",
             "src/darwinTest/kotlin/",
+            "src/jsTest/kotlin/",
+            "src/jvmTest/kotlin/",
         ).joinToString(","))
     }
 }

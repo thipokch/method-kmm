@@ -3,7 +3,7 @@ package ch.thipok.method
 import kotlin.test.Test
 import kotlin.test.assertTrue
 
-class IosGreetingTest {
+class DarwinGreetingTest {
 
     @Test
     fun testExample() {
