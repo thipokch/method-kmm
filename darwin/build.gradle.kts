@@ -16,6 +16,12 @@ tasks {
         }
     }
 
+    val swiftLint by creating {
+        play("mkdir -p build/reports/swiftlint/ && " +
+                "swiftlint lint --reporter json " +
+                "> build/reports/swiftlint/report.json")
+    }
+
     val fireDev by creating {
         dependsOn(clean)
         fireConfig("DEV")
