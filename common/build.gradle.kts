@@ -1,3 +1,4 @@
+import com.android.build.gradle.internal.tasks.factory.dependsOn
 import org.jetbrains.kotlin.gradle.plugin.mpp.apple.XCFramework
 
 //
@@ -134,9 +135,7 @@ detekt {
     )
 }
 
-tasks.sonarqube {
-    dependsOn(tasks.koverVerify)
-}
+tasks.sonarqube.dependsOn(tasks.koverVerify)
 
 sonarqube {
     properties {

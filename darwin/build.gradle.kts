@@ -4,10 +4,6 @@ plugins {
     id("org.openbakery.xcode-plugin") version "0.21.0"
 }
 
-xcodebuild {
-    target = "darwin"
-}
-
 @Suppress("UnusedPrivateMember")
 tasks {
     val clean by getting {
@@ -17,8 +13,8 @@ tasks {
     }
 
     val swiftLint by creating {
-        play("mkdir -p build/reports/swiftlint/ && " +
-                "swiftlint lint --reporter json " +
+        mkdir("build/reports/swiftlint/")
+        play("swiftlint lint --reporter json " +
                 "> build/reports/swiftlint/report.json")
     }
 
@@ -37,19 +33,55 @@ tasks {
         fireConfig("PRD")
     }
 
-    val buildDev by creating(XcodeBuildTask::class) {
-        dependsOn(fireDev)
-        scheme = "dev"
-    }
+    // Due to openbakery/gradle-xcodePlugin#458
+    // xcodebuild is configured in taskgraph.whenReady below
+    val buildDev by creating(XcodeBuildTask::class)
+    val buildPre by creating(XcodeBuildTask::class)
+    val buildPrd by creating(XcodeBuildTask::class)
 
-    val buildPre by creating(XcodeBuildTask::class) {
-        dependsOn(firePre)
-        scheme = "pre"
-    }
+    buildDev.dependsOn(fireDev)
+    buildPre.dependsOn(firePre)
+    buildPre.dependsOn(firePrd)
 
-    val buildPrd by creating(XcodeBuildTask::class) {
-        dependsOn(firePrd)
-        scheme = "prd"
+    // Due to openbakery/gradle-xcodePlugin#458
+    // xcodebuild is configured in taskgraph.whenReady below
+    gradle.taskGraph.whenReady {
+
+        if(hasTask(buildDev)) {
+            xcodebuild {
+                scheme = "dev"
+                target = "method"
+
+                infoplist {
+                    bundleIdentifier = "ch.thipok.method.dev"
+                    bundleDisplayName = "Method Dev"
+                }
+            }
+        }
+
+        if(hasTask(buildPre)) {
+            xcodebuild {
+                scheme = "pre"
+                target = "method"
+
+                infoplist {
+                    bundleIdentifier = "ch.thipok.method.pre"
+                    bundleDisplayName = "Method Pre"
+                }
+            }
+        }
+
+        if(hasTask(buildPrd)) {
+            xcodebuild {
+                scheme = "prd"
+                target = "method"
+
+                infoplist {
+                    bundleIdentifier = "ch.thipok.method"
+                    bundleDisplayName = "Method"
+                }
+            }
+        }
     }
 }
 

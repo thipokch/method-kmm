@@ -1,3 +1,5 @@
+import com.android.build.gradle.internal.tasks.factory.dependsOn
+
 plugins {
     kotlin("js")
     /** DevOps Tooling **/
@@ -70,9 +72,7 @@ detekt {
     )
 }
 
-tasks.sonarqube {
-    dependsOn(tasks.koverVerify)
-}
+tasks.sonarqube.dependsOn(tasks.koverVerify)
 
 sonarqube {
     properties {
