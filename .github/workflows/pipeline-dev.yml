@@ -37,4 +37,17 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+
+          FIREBASE_APPID_IOS_DEV: ${{ secrets.FIREBASE_APPID_IOS_DEV }}
+          FIREBASE_APPID_IOS_PRE: ${{ secrets.FIREBASE_APPID_IOS_PRE }}
+          FIREBASE_APPID_IOS_PRD: ${{ secrets.FIREBASE_APPID_IOS_PRD }}
+
+          FIREBASE_APPID_ANDROID_DEV: ${{ secrets.FIREBASE_APPID_ANDROID_DEV }}
+          FIREBASE_APPID_ANDROID_PRE: ${{ secrets.FIREBASE_APPID_ANDROID_PRE }}
+          FIREBASE_APPID_ANDROID_PRD: ${{ secrets.FIREBASE_APPID_ANDROID_PRD }}
+
+          FIREBASE_APPID_WEB_DEV: ${{ secrets.FIREBASE_APPID_WEB_DEV }}
+          FIREBASE_APPID_WEB_PRE: ${{ secrets.FIREBASE_APPID_WEB_PRE }}
+          FIREBASE_APPID_WEB_PRD: ${{ secrets.FIREBASE_APPID_WEB_PRD }}
         run: ./gradlew build sonarqube --info
