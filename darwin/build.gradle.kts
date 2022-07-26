@@ -47,18 +47,16 @@ tasks {
     // xcodebuild is configured in taskgraph.whenReady below
     gradle.taskGraph.whenReady {
 
-        if(hasTask(buildDev)) {
-            xcodebuild {
-                scheme = "dev"
-                target = "method"
+        xcodebuild {
+            scheme = "dev"
+            target = "method"
 
-                infoplist {
-                    bundleIdentifier = "ch.thipok.method.dev"
-                    bundleDisplayName = "Method Dev"
-                }
+            infoplist {
+                bundleIdentifier = "ch.thipok.method.dev"
+                bundleDisplayName = "Method Dev"
             }
         }
-
+        
         if(hasTask(buildPre)) {
             xcodebuild {
                 scheme = "pre"
