@@ -29,9 +29,13 @@ allprojects {
 
 @Suppress("UnusedPrivateMember")
 tasks {
-//    val clean by getting {
-//        play("git clean -x -d -f -q")
-//    }
+    val cleanDeep by creating {
+        play("git clean -x -d -f -q")
+    }
+
+    val setupFire by creating {
+        play("npm install -g firebase-tools")
+    }
 
     val setupGitHooks by creating {
         play("chmod -R +x .githook/")

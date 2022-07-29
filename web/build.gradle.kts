@@ -1,7 +1,7 @@
 import com.android.build.gradle.internal.tasks.factory.dependsOn
 
 plugins {
-    kotlin("js")
+    id("org.jetbrains.kotlin.js")
     /** DevOps Tooling **/
     id("org.sonarqube")                 version "3.4.0.2513"    // Code Analysis Platform
     id("io.gitlab.arturbosch.detekt")   version "1.21.0"        // Kotlin Analysis + Lint
