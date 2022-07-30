@@ -1,22 +1,24 @@
-import org.openbakery.XcodeBuildTask
-
-plugins {
-    /** DevOps Tooling **/
-    id("org.openbakery.xcode-plugin")   version "0.21.0"        // Xcode
-}
+val isCI = env.fetch("CI", "false").toLowerCase() == "true"
+val tempDir = file(env.fetch("RUNNER_TEMP", "$projectDir/temp"))
 
 @Suppress("UnusedPrivateMember")
 tasks {
-    val clean by getting {
+
+    val clean by creating {
         doLast {
             delete("darwin/GoogleService-Info.plist")
         }
+//        finalizedBy(xcodebuildClean) Circular Deps
     }
 
-    val swiftLint by creating {
-        mkdir("build/reports/swiftlint/")
-        play("swiftlint lint --reporter json " +
-                "> build/reports/swiftlint/report.json")
+    val sonarscan by creating {
+        play("sonar-scanner " +
+                "-Dsonar.organization=thipokch " +
+                "-Dsonar.projectName=method.darwin " +
+                "-Dsonar.projectKey=method.darwin " +
+                "-Dsonar.projectBaseDir=darwin " +
+                "-Dsonar.verbose=true " +
+                "-Dsonar.host.url=https://sonarcloud.io")
     }
 
     val fireDev by creating {
@@ -33,55 +35,6 @@ tasks {
         dependsOn(clean)
         fireConfig("PRD")
     }
-
-    // Due to openbakery/gradle-xcodePlugin#458
-    // xcodebuild is configured in taskgraph.whenReady below
-    val buildDev by creating(XcodeBuildTask::class)
-    val buildPre by creating(XcodeBuildTask::class)
-    val buildPrd by creating(XcodeBuildTask::class)
-
-    buildDev.dependsOn(fireDev)
-    buildPre.dependsOn(firePre)
-    buildPre.dependsOn(firePrd)
-
-    // Due to openbakery/gradle-xcodePlugin#458
-    // xcodebuild is configured in taskgraph.whenReady below
-    gradle.taskGraph.whenReady {
-
-        xcodebuild {
-            scheme = "dev"
-            target = "method"
-
-            infoplist {
-                bundleIdentifier = "ch.thipok.method.dev"
-                bundleDisplayName = "Method Dev"
-            }
-        }
-        
-        if(hasTask(buildPre)) {
-            xcodebuild {
-                scheme = "pre"
-                target = "method"
-
-                infoplist {
-                    bundleIdentifier = "ch.thipok.method.pre"
-                    bundleDisplayName = "Method Pre"
-                }
-            }
-        }
-
-        if(hasTask(buildPrd)) {
-            xcodebuild {
-                scheme = "prd"
-                target = "method"
-
-                infoplist {
-                    bundleIdentifier = "ch.thipok.method"
-                    bundleDisplayName = "Method"
-                }
-            }
-        }
-    }
 }
 
 //
@@ -94,8 +47,25 @@ fun Task.play(command:String) = doLast {
     }
 }
 
-fun Task.fireConfig(pipeline: String) =
+fun Task.fireConfig(environment: String) =
     play("firebase apps:sdkconfig " +
             "--out darwin/GoogleService-Info.plist " +
-            "IOS ${env.fetch("FIREBASE_APPID_IOS_$pipeline")} " +
+            "IOS ${env.fetch("FIREBASE_APPID_IOS_$environment")} " +
             "--token ${env.fetch("FIREBASE_TOKEN")}" )
+
+fun Task.appleCertificate() {
+    if (isCI) {
+        val cerEncoded = env.fetch("APPLE_DIS_CERTIFICATE")
+        val cerPath = tempDir.resolve("DIS.p12").toString()
+        play("echo -n $cerEncoded | base64 --decode --output $cerPath")
+    }
+}
+
+fun Task.appleProfile(scheme: String) {
+    if (isCI) {
+        val schemeString = scheme.toUpperCase()
+        val profileEncoded = env.fetch("APPLE_${schemeString}_PROVISIONING_PROFILE")
+        val profilePath = tempDir.resolve("${schemeString}.mobileprovision").toString()
+        play("echo -n $profileEncoded | base64 --decode --output $profilePath")
+    }
+}
