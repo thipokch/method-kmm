@@ -28,9 +28,9 @@ tasks {
         fireConfig("DEV")
     }
 
-    val firePre by creating {
+    val fireStg by creating {
         dependsOn(clean)
-        fireConfig("PRE")
+        fireConfig("STG")
     }
 
     val firePrd by creating {

@@ -8,7 +8,6 @@ tasks {
         doLast {
             delete("darwin/GoogleService-Info.plist")
         }
-//        finalizedBy(xcodebuildClean) Circular Deps
     }
 
     val sonarscan by creating {
@@ -22,18 +21,34 @@ tasks {
     }
 
     val fireDev by creating {
-        dependsOn(clean)
         fireConfig("DEV")
     }
 
-    val firePre by creating {
-        dependsOn(clean)
-        fireConfig("PRE")
+    val fireStg by creating {
+        fireConfig("STG")
     }
 
     val firePrd by creating {
-        dependsOn(clean)
         fireConfig("PRD")
+    }
+
+    val buildDev by creating {
+        dependsOn(fireDev)
+        play("fastlane ios buildDev")
+    }
+    val buildStg by creating{
+        dependsOn(fireStg)
+        play("fastlane ios buildStg")
+    }
+    val buildPrd by creating{
+        dependsOn(firePrd)
+        play("fastlane ios buildPrd")
+    }
+
+    val build by creating {
+        finalizedBy(buildDev)
+        finalizedBy(buildStg)
+        finalizedBy(buildPrd)
     }
 }
 
@@ -43,29 +58,15 @@ tasks {
 
 fun Task.play(command:String) = doLast {
     exec {
+        workingDir(projectDir)
         commandLine(command.split(" "))
     }
 }
 
-fun Task.fireConfig(environment: String) =
+fun Task.fireConfig(environment: String) {
+    delete("darwin/GoogleService-Info.plist")
     play("firebase apps:sdkconfig " +
             "--out darwin/GoogleService-Info.plist " +
             "IOS ${env.fetch("FIREBASE_APPID_IOS_$environment")} " +
             "--token ${env.fetch("FIREBASE_TOKEN")}" )
-
-fun Task.appleCertificate() {
-    if (isCI) {
-        val cerEncoded = env.fetch("APPLE_DIS_CERTIFICATE")
-        val cerPath = tempDir.resolve("DIS.p12").toString()
-        play("echo -n $cerEncoded | base64 --decode --output $cerPath")
-    }
-}
-
-fun Task.appleProfile(scheme: String) {
-    if (isCI) {
-        val schemeString = scheme.toUpperCase()
-        val profileEncoded = env.fetch("APPLE_${schemeString}_PROVISIONING_PROFILE")
-        val profilePath = tempDir.resolve("${schemeString}.mobileprovision").toString()
-        play("echo -n $profileEncoded | base64 --decode --output $profilePath")
-    }
 }

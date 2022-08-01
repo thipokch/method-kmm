@@ -10,3 +10,6 @@
 .cxx
 local.properties
 .env
+*.cer
+*.mobileprovision
+web/firebase-config.js

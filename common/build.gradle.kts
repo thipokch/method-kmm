@@ -47,7 +47,6 @@ kotlin {
                 baseName = "common"
                 isStatic = true
                 freeCompilerArgs += "-Xno-objc-generics"
-                embedBitcode("bitcode")
                 xcf.add(this)
             }
         }

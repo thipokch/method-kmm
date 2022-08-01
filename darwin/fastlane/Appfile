@@ -8,7 +8,6 @@
 #   end
 # end
 
-app_identifier("ch.thipok.method") # The bundle identifier of your app
 apple_id("thipokch@gmail.com") # Your Apple email address
 
 itc_team_id("125245147") # App Store Connect Team ID

@@ -17,48 +17,51 @@ default_platform(:ios)
 
 platform :ios do
 
-    desc "Build Dev"
+    desc "Build Development"
     lane :buildDev do
-    match(
-        type: "development",
-        storage_mode: "git",
-        git_url: "https://github.com/thipokch/method-secrets",
-        readonly: is_ci
-    )
-    build_app(
-        scheme: "dev",
-        export_method: "development",
-        output_directory: "./build/dev",
-    )
-    end
-
-    desc "Build Preview"
-    lane :buildPre do
         match(
-          type: "appstore",
-          storage_mode: "git",
-          git_url: "https://github.com/thipokch/method-secrets",
-          readonly: is_ci
+            type: "development",
+            app_identifier: "ch.thipok.method.dev",
+            git_url: "https://github.com/thipokch/method-secrets",
+            storage_mode: "git",
+            readonly: is_ci,
         )
         build_app(
-          scheme: "pre",
-          export_method: "app-store",
-          output_directory: "./build/pre",
+            scheme: "dev",
+            export_method: "development",
+            output_directory: "./build/dev",
+        )
+    end
+
+    desc "Build Staging"
+    lane :buildStg do
+        match(
+            type: "appstore",
+            app_identifier: "ch.thipok.method.stg",
+            git_url: "https://github.com/thipokch/method-secrets",
+            storage_mode: "git",
+            readonly: is_ci
+        )
+        build_app(
+            scheme: "stg",
+            export_method: "app-store",
+            output_directory: "./build/stg",
         )
     end
 
     desc "Build Preview"
     lane :buildPrd do
         match(
-          type: "appstore",
-          storage_mode: "git",
-          git_url: "https://github.com/thipokch/method-secrets",
-          readonly: is_ci
+            type: "appstore",
+            app_identifier: "ch.thipok.method",
+            git_url: "https://github.com/thipokch/method-secrets",
+            storage_mode: "git",
+            readonly: is_ci
         )
         build_app(
-          scheme: "prd",
-          export_method: "app-store",
-          output_directory: "./build/prd",
+            scheme: "prd",
+            export_method: "app-store",
+            output_directory: "./build/prd",
         )
     end
 end

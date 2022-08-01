@@ -40,10 +40,10 @@ android {
             resValue("string", "app_name", "Method Dev")
         }
 
-        val pre by creating {
+        val stg by creating {
             dimension = "environment"
-            applicationIdSuffix = ".pre"
-            resValue("string", "app_name", "Method Pre")
+            applicationIdSuffix = ".stg"
+            resValue("string", "app_name", "Method Stg")
         }
 
         val prd by creating {
@@ -68,7 +68,7 @@ tasks {
     val clean by getting {
         doLast {
             delete("src/dev/google-services.json")
-            delete("src/pre/google-services.json")
+            delete("src/stg/google-services.json")
             delete("src/prd/google-services.json")
         }
     }
@@ -77,8 +77,8 @@ tasks {
         fireConfig("DEV")
     }
 
-    val firePre by creating {
-        fireConfig("PRE")
+    val fireStg by creating {
+        fireConfig("STG")
     }
 
     val firePrd by creating {
@@ -86,21 +86,21 @@ tasks {
     }
 
     val buildDev by creating
-    val buildPre by creating
+    val buildStg by creating
     val buildPrd by creating
 
     afterEvaluate {
         // Variants only available after evaluate
         val assembleDev by getting
-        val assemblePre by getting
+        val assembleStg by getting
         val assemblePrd by getting
 
         assembleDev.dependsOn(fireDev)
-        assemblePre.dependsOn(firePre)
+        assembleStg.dependsOn(fireStg)
         assemblePrd.dependsOn(firePrd)
 
         buildDev.dependsOn(assembleDev)
-        buildPre.dependsOn(assemblePre)
+        buildStg.dependsOn(assembleStg)
         buildPrd.dependsOn(assemblePrd)
     }
 }
