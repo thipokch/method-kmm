@@ -43,7 +43,17 @@ jobs:
           GRGIT_USER: ${{ secrets.GRGIT_USER }}
         run: ./gradlew build sonarqube --scan --info --stacktrace
 
-      - name: Upload artifacts
+      - name: Upload IPA
+        uses: actions/upload-artifact@master
+        with:
+          name: darwin-ipa
+          path: darwin/build/outputs/ipa
+
+      - name: Upload APK
+        uses: actions/upload-artifact@master
+        with:
+          name: android-apk
+          path: android/build/outputs/apk
 
       - name: Gradle clean up
         if: ${{ always() }}

@@ -30,7 +30,7 @@ platform :ios do
         build_app(
             scheme: "dev",
             export_method: "development",
-            output_directory: "./build/dev",
+            output_directory: "./build/outputs/ipa/dev",
         )
     end
 
@@ -47,7 +47,7 @@ platform :ios do
         build_app(
             scheme: "stg",
             export_method: "app-store",
-            output_directory: "./build/stg",
+            output_directory: "./build/outputs/ipa/stg",
         )
     end
 
@@ -64,7 +64,7 @@ platform :ios do
         build_app(
             scheme: "prd",
             export_method: "app-store",
-            output_directory: "./build/prd",
+            output_directory: "./build/outputs/ipa/prd",
         )
     end
 end
