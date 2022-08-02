@@ -1,5 +1,9 @@
 import com.android.build.gradle.internal.tasks.factory.dependsOn
 
+//
+// Project Config
+//
+
 plugins {
     id("org.jetbrains.kotlin.js")
     /** DevOps Tooling **/
@@ -15,50 +19,51 @@ kotlin {
     }
 }
 
-@Suppress("UnusedPrivateMember")
-tasks {
-    val clean by getting {
-        doLast {
-            delete("firebase-config.js")
-        }
-    }
-
-    val fireDev by creating {
-        dependsOn(clean)
-        fireConfig("DEV")
-    }
-
-    val fireStg by creating {
-        dependsOn(clean)
-        fireConfig("STG")
-    }
-
-    val firePrd by creating {
-        dependsOn(clean)
-        fireConfig("PRD")
-    }
-}
-
-//
-// Helpers
-//
-
-fun Task.play(command:String) = doLast {
-    exec {
-        commandLine(command.split(" "))
-    }
-}
-
-fun Task.fireConfig(pipeline: String) =
-    play("firebase apps:sdkconfig " +
-            "--out firebase-config.js " +
-            "WEB ${env.fetch("FIREBASE_APPID_WEB_$pipeline")} " +
-            "--token ${env.fetch("FIREBASE_TOKEN")}" )
-
 dependencies {
     implementation(project(":common"))
     testImplementation(kotlin("test-js"))
     detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:1.21.0") // Code Formatting
+}
+
+//
+// Tasks
+//
+
+@Suppress("UnusedPrivateMember")
+tasks {
+
+    val cleanSecrets by creating {
+        doLast {
+            val envDirs = listOf(
+                projectDir.resolve("src/main/resources/dev"),
+                projectDir.resolve("src/main/resources/stg"),
+                projectDir.resolve("src/main/resources/prd"),
+            )
+
+            val envFiles = envDirs
+                .map { fileTree(it) }
+                .flatten()
+                .filter { it.isFile }
+
+            envFiles
+                .filter { it.name == "google-services.js" }
+                .forEach { delete(it) }
+        }
+    }
+
+    val setupSecrets by creating {
+        dependsOn(":setupSecrets")
+        doLast {
+            logger.info("copying .secrets/google/web into resources")
+            copy {
+                from(rootProject.layout.buildDirectory.dir(".secrets/google/web"))
+                into(layout.projectDirectory.dir("src/main/resources"))
+                include("**/*.js")
+            }
+        }
+    }
+
+    sonarqube.dependsOn(koverVerify)
 }
 
 //
@@ -71,8 +76,6 @@ detekt {
         "src/main/kotlin",
     )
 }
-
-tasks.sonarqube.dependsOn(tasks.koverVerify)
 
 sonarqube {
     properties {

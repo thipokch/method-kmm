@@ -22,7 +22,8 @@ platform :ios do
         match(
             type: "development",
             app_identifier: "ch.thipok.method.dev",
-            git_url: "https://github.com/thipokch/method-secrets",
+            git_url: ENV["MATCH_GIT_REPO"],
+            # MATCH_PASSWORD env for match password
             storage_mode: "git",
             readonly: is_ci,
         )
@@ -38,7 +39,8 @@ platform :ios do
         match(
             type: "appstore",
             app_identifier: "ch.thipok.method.stg",
-            git_url: "https://github.com/thipokch/method-secrets",
+            git_url: ENV["MATCH_GIT_REPO"],
+            # MATCH_PASSWORD env for match password
             storage_mode: "git",
             readonly: is_ci
         )
@@ -54,7 +56,8 @@ platform :ios do
         match(
             type: "appstore",
             app_identifier: "ch.thipok.method",
-            git_url: "https://github.com/thipokch/method-secrets",
+            git_url: ENV["MATCH_GIT_REPO"],
+            # MATCH_PASSWORD env for match password
             storage_mode: "git",
             readonly: is_ci
         )

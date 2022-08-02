@@ -1,5 +1,9 @@
 import com.android.build.gradle.internal.tasks.factory.dependsOn
 
+//
+// Project Config
+//
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
@@ -61,76 +65,54 @@ dependencies {
     /** Testing **/
     implementation("org.jetbrains.kotlin:kotlin-test-junit:1.7.10")
     implementation("junit:junit:4.13.2")
+    /** DevOps Tooling **/
+    detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:1.21.0") // Code Formatting
 }
+
+//
+// Tasks
+//
 
 @Suppress("UnusedPrivateMember")
 tasks {
-    val clean by getting {
+    val cleanSecrets by creating {
         doLast {
-            delete("src/dev/google-services.json")
-            delete("src/stg/google-services.json")
-            delete("src/prd/google-services.json")
+            val envDirs = listOf(
+                projectDir.resolve("src/dev"),
+                projectDir.resolve("src/stg"),
+                projectDir.resolve("src/prd"),
+            )
+
+            val envFiles = envDirs
+                .map { fileTree(it) }
+                .flatten()
+                .filter { it.isFile }
+
+            envFiles
+                .filter { it.name == "google-services.json" }
+                .forEach { delete(it) }
         }
     }
 
-    val fireDev by creating {
-        fireConfig("DEV")
+    val setupSecrets by creating {
+        preBuild.dependsOn(this)
+        dependsOn(":setupSecrets")
+        doLast {
+            logger.info("copying .secrets/google/android into src")
+            copy {
+                from(rootProject.layout.buildDirectory.dir(".secrets/google/android"))
+                into(layout.projectDirectory.dir("src"))
+                include("**/*.json")
+            }
+        }
     }
 
-    val fireStg by creating {
-        fireConfig("STG")
-    }
-
-    val firePrd by creating {
-        fireConfig("PRD")
-    }
-
-    val buildDev by creating
-    val buildStg by creating
-    val buildPrd by creating
-
-    afterEvaluate {
-        // Variants only available after evaluate
-        val assembleDev by getting
-        val assembleStg by getting
-        val assemblePrd by getting
-
-        assembleDev.dependsOn(fireDev)
-        assembleStg.dependsOn(fireStg)
-        assemblePrd.dependsOn(firePrd)
-
-        buildDev.dependsOn(assembleDev)
-        buildStg.dependsOn(assembleStg)
-        buildPrd.dependsOn(assemblePrd)
-    }
-}
-
-//
-// Helpers
-//
-
-fun Task.play(command:String) = doLast {
-    exec {
-        commandLine(command.split(" "))
-    }
-}
-
-fun Task.fireConfig(pipeline: String) {
-    delete("src/${pipeline.toLowerCase()}/google-services.json")
-    mkdir("src/${pipeline.toLowerCase()}")
-    play("firebase apps:sdkconfig " +
-            "--out src/${pipeline.toLowerCase()}/google-services.json " +
-            "ANDROID ${env.fetch("FIREBASE_APPID_ANDROID_${pipeline.toUpperCase()}")} " +
-            "--token ${env.fetch("FIREBASE_TOKEN")}" )
+    sonarqube.dependsOn(koverVerify)
 }
 
 //
 // DevOps Tooling Config
 //
-
-dependencies {
-    detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:1.21.0") // Code Formatting
-}
 
 detekt {
     parallel = true
@@ -138,8 +120,6 @@ detekt {
         "src/main/java",
     )
 }
-
-tasks.sonarqube.dependsOn(tasks.koverVerify)
 
 sonarqube {
     properties {

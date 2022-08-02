@@ -1,48 +1,65 @@
-val isCI = env.fetch("CI", "false").toLowerCase() == "true"
-val tempDir = file(env.fetch("RUNNER_TEMP", "$projectDir/temp"))
+//
+// Tasks
+//
 
 @Suppress("UnusedPrivateMember")
 tasks {
-
-    val clean by creating {
+    val setupSecrets by creating {
+        dependsOn(":setupSecrets")
         doLast {
-            delete("darwin/GoogleService-Info.plist")
+            logger.info("copying .secrets/google/darwin into darwin")
+            copy {
+                from(rootProject.layout.buildDirectory.dir(".secrets/google/darwin"))
+                into(layout.projectDirectory)
+                include("**/*.plist")
+            }
         }
     }
 
-    val sonarscan by creating {
-        play("sonar-scanner " +
-                "-Dsonar.organization=thipokch " +
-                "-Dsonar.projectName=method.darwin " +
-                "-Dsonar.projectKey=method.darwin " +
-                "-Dsonar.projectBaseDir=darwin " +
-                "-Dsonar.verbose=true " +
-                "-Dsonar.host.url=https://sonarcloud.io")
+    val cleanSecrets by creating {
+        doLast {
+            val envDirs = listOf(
+                projectDir.resolve("dev"),
+                projectDir.resolve("stg"),
+                projectDir.resolve("prd"),
+            )
+
+            val envFiles = envDirs
+                .map { fileTree(it) }
+                .flatten()
+                .filter { it.isFile }
+
+            envFiles
+                .filter { it.name == "GoogleService-Info.plist" }
+                .forEach { delete(it) }
+        }
     }
 
-    val fireDev by creating {
-        fireConfig("DEV")
-    }
-
-    val fireStg by creating {
-        fireConfig("STG")
-    }
-
-    val firePrd by creating {
-        fireConfig("PRD")
+    val sonarqube by creating {
+        doLast {
+            exec {
+                workingDir = projectDir
+                executable = "sonar-scanner"
+                args = listOf(
+                    "-Dsonar.organization=thipokch",
+                    "-Dsonar.projectName=method.darwin",
+                    "-Dsonar.projectKey=method.darwin",
+                    "-Dsonar.projectBaseDir=darwin",
+                    "-Dsonar.verbose=true",
+                    "-Dsonar.host.url=https://sonarcloud.io",
+                )
+            }
+        }
     }
 
     val buildDev by creating {
-        dependsOn(fireDev)
-        play("fastlane ios buildDev")
+        fastLane("buildDev")
     }
     val buildStg by creating{
-        dependsOn(fireStg)
-        play("fastlane ios buildStg")
+        fastLane("buildStg")
     }
     val buildPrd by creating{
-        dependsOn(firePrd)
-        play("fastlane ios buildPrd")
+        fastLane("buildPrd")
     }
 
     val build by creating {
@@ -56,17 +73,21 @@ tasks {
 // Helpers
 //
 
-fun Task.play(command:String) = doLast {
-    exec {
-        workingDir(projectDir)
-        commandLine(command.split(" "))
-    }
-}
+fun Task.fastLane(lane: String) {
+    doLast {
+        exec {
+            environment("MATCH_PASSWORD", env.fetch("SECRETS_PASSWORD"))
+            environment("MATCH_GIT_REPO", rootProject.buildDir.resolve(".secrets").path)
 
-fun Task.fireConfig(environment: String) {
-    delete("darwin/GoogleService-Info.plist")
-    play("firebase apps:sdkconfig " +
-            "--out darwin/GoogleService-Info.plist " +
-            "IOS ${env.fetch("FIREBASE_APPID_IOS_$environment")} " +
-            "--token ${env.fetch("FIREBASE_TOKEN")}" )
+            workingDir = projectDir
+            executable = "bundle"
+
+            args = listOfNotNull(
+                "exec",
+                "fastlane",
+                "ios",
+                lane,
+            )
+        }
+    }
 }
