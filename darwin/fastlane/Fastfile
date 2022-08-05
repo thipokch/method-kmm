@@ -19,6 +19,7 @@ platform :ios do
 
     desc "Build Development"
     lane :buildDev do
+        setup_ci if ENV['CI']
         match(
             type: "development",
             app_identifier: "ch.thipok.method.dev",
@@ -26,6 +27,9 @@ platform :ios do
             # MATCH_PASSWORD env for match password
             storage_mode: "git",
             readonly: is_ci,
+        )
+        increment_build_number(
+          build_number: ENV["BUILD_TIME_HASH"],
         )
         build_app(
             scheme: "dev",
@@ -36,6 +40,7 @@ platform :ios do
 
     desc "Build Staging"
     lane :buildStg do
+        setup_ci if ENV['CI']
         match(
             type: "appstore",
             app_identifier: "ch.thipok.method.stg",
@@ -43,6 +48,9 @@ platform :ios do
             # MATCH_PASSWORD env for match password
             storage_mode: "git",
             readonly: is_ci
+        )
+        increment_build_number(
+          build_number: ENV["BUILD_TIME_HASH"],
         )
         build_app(
             scheme: "stg",
@@ -53,6 +61,7 @@ platform :ios do
 
     desc "Build Preview"
     lane :buildPrd do
+        setup_ci if ENV['CI']
         match(
             type: "appstore",
             app_identifier: "ch.thipok.method",
@@ -60,6 +69,9 @@ platform :ios do
             # MATCH_PASSWORD env for match password
             storage_mode: "git",
             readonly: is_ci
+        )
+        increment_build_number(
+          build_number: ENV["BUILD_TIME_HASH"],
         )
         build_app(
             scheme: "prd",

@@ -66,6 +66,13 @@ tasks {
         dependsOn(cleanSecrets)
 
         doLast {
+            exec {
+                commandLine = listOf(
+                    "bash",
+                    "-c",
+                    "openssl version"
+                )
+            }
 
         // 2 - Clone secret repository
 
@@ -89,12 +96,15 @@ tasks {
                             "aes-256-cbc",
                             "-d",
                             "-a",
+                            "-v",
                             "-k",
                             env.fetch("SECRETS_PASSWORD"),
                             "-out",
                             it.name.removeSuffix(".enc"),
                             "-in",
-                            it.name.toString(),
+                            it.name,
+                            "-md",
+                            "md5",
                         )
                     }
                 }
@@ -105,6 +115,22 @@ tasks {
         play("chmod -R +x .githook/")
         play("git config core.hooksPath .githook/")
     }
+}
+
+gradle.taskGraph.whenReady {
+    val now = java.time.Instant.now()
+    val buildDate = java.time.format.DateTimeFormatter
+        .ofPattern("yyMMdd")
+        .withZone(java.time.ZoneOffset.UTC)
+        .format(now)
+
+    val nowHour = now.atZone(java.time.ZoneOffset.UTC).hour
+    val nowMin = now.atZone(java.time.ZoneOffset.UTC).minute
+    val buildTimeHash = "%02d".format( (nowHour * 4) + (nowMin / 15))
+
+    System.setProperty("BUILD_TIME_HASH", buildDate + buildTimeHash)
+
+    println("Set BUILD_TIME_HASH to $buildDate")
 }
 
 //

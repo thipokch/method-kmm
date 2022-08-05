@@ -64,6 +64,15 @@ tasks {
     }
 
     sonarqube.dependsOn(koverVerify)
+    build.dependsOn(setupSecrets)
+
+    val assembleDev by creating
+    val assembleStg by creating
+    val assemblePrd by creating
+
+    assembleDev.dependsOn(build)
+    assembleStg.dependsOn(build)
+    assemblePrd.dependsOn(build)
 }
 
 //

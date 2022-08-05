@@ -95,7 +95,6 @@ tasks {
     }
 
     val setupSecrets by creating {
-        preBuild.dependsOn(this)
         dependsOn(":setupSecrets")
         doLast {
             logger.info("copying .secrets/google/android into src")
@@ -108,6 +107,7 @@ tasks {
     }
 
     sonarqube.dependsOn(koverVerify)
+    build.dependsOn(setupSecrets)
 }
 
 //
