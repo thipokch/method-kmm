@@ -1,5 +1,5 @@
-name: Flutter Setup
-description: Setup Flutter for CI
+name: Gradle Setup
+description: Setup Gradle for CI
 
 runs:
   using: "composite"

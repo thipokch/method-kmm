@@ -82,6 +82,14 @@ tasks {
         finalizedBy(assemblePrd)
     }
 
+    val deployStg by creating{
+        fastLane("deployStg")
+    }
+
+    val deployPrd by creating{
+        fastLane("deployPrd")
+    }
+
     listOf(
         setupSecrets,
         cleanSecrets,
@@ -90,6 +98,8 @@ tasks {
         assembleDev,
         assembleStg,
         assemblePrd,
+        deployStg,
+        deployPrd,
         build,
     ).forEach {
         it.onlyIf { Os.isFamily(Os.FAMILY_MAC) }
