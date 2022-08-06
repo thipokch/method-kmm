@@ -20,7 +20,7 @@ platform :ios do
     desc "Build Development"
     lane :buildDev do
         setup_ci if ENV['CI']
-        sync_code_signing(
+        match(
             type: "development",
             app_identifier: "ch.thipok.method.dev",
             git_url: ENV["MATCH_GIT_REPO"],
@@ -41,7 +41,7 @@ platform :ios do
     desc "Build Staging"
     lane :buildStg do
         setup_ci if ENV['CI']
-        sync_code_signing(
+        match(
             type: "appstore",
             app_identifier: "ch.thipok.method.stg",
             git_url: ENV["MATCH_GIT_REPO"],
@@ -62,7 +62,7 @@ platform :ios do
     desc "Build Production"
     lane :buildPrd do
         setup_ci if ENV['CI']
-        sync_code_signing(
+        match(
             type: "appstore",
             app_identifier: "ch.thipok.method",
             git_url: ENV["MATCH_GIT_REPO"],

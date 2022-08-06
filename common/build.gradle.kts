@@ -67,7 +67,6 @@ kotlin {
 
                 baseName = "common"
                 isStatic = true
-                // transitiveExport = true
                 freeCompilerArgs += "-Xno-objc-generics"
 
                 xcf.add(this)

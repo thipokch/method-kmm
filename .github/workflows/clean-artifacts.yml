@@ -1,0 +1,20 @@
+name: Clean Artifacts
+
+on:
+  workflow_dispatch:
+    inputs:
+      days_old:
+        description: "The amount of days old to delete"
+        default: "7"
+        required: false
+  schedule:
+    - cron: '0 0 * * *' # every day
+
+jobs:
+  purge-artifacts:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: kolpav/purge-artifacts-action@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          expire-in: ${{ inputs.days_old }}days # Setting this to 0 will delete all artifacts
