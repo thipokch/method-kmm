@@ -11,14 +11,14 @@ plugins {
 
     /***** DevOps Tooling *****/
 
-    id("org.sonarqube") version "3.4.0.2513"    // Code Analysis Platform
-    id("io.gitlab.arturbosch.detekt") version "1.21.0"        // Kotlin Analysis + Lint
-    id("org.jetbrains.kotlinx.kover") version "0.5.0"         // Test Coverage
-    id("co.touchlab.kermit") version "1.1.3"         // Strip Logging
+    id("org.sonarqube")                 version "3.4.0.2513"    // Code Analysis Platform
+    id("io.gitlab.arturbosch.detekt")   version "1.21.0"        // Kotlin Analysis + Lint
+    id("org.jetbrains.kotlinx.kover")   version "0.5.0"         // Test Coverage
+    id("co.touchlab.kermit")            version "1.1.3"         // Strip Logging
 
     /***** Code Utilities *****/
 
-    id("io.realm.kotlin") version "1.0.1"         // Realm Code Gen
+    id("io.realm.kotlin")               version "1.0.1"         // Realm Code Gen
     id("kotlin-parcelize")                                      // Parcel Code Gen
 }
 
@@ -204,15 +204,6 @@ kotlin {
         val realmMain by creating {
             dependsOn(commonMain)
 
-            // Only the following targets are supported by Realm:
-            // - android
-            // - iosArm64
-            // - iosSimulatorArm64
-            // - iosX64
-            // - jvm
-            // - macosArm64
-            // - macosX64
-
             androidMain.dependsOn(this)
             darwinMain.dependsOn(this)
             jvmMain.dependsOn(this)
@@ -221,6 +212,7 @@ kotlin {
                 implementation("io.realm.kotlin:library-base:1.0.1")
             }
         }
+
         val realmTest by creating {
             dependsOn(commonTest)
 
@@ -231,7 +223,6 @@ kotlin {
             // https://youtrack.jetbrains.com/issue/KT-42298
             // https://github.com/realm/realm-kotlin/blob/76f9654ec1fac5ad7fe2ecbe753be93b73859116/README.md
             // https://github.com/realm/realm-kotlin/pull/187
-            
             androidTest.dependsOn(this)
             darwinTest.dependsOn(this)
             jvmTest.dependsOn(this)
@@ -264,6 +255,7 @@ detekt {
         "src/darwinMain/kotlin/",
         "src/jsMain/kotlin/",
         "src/jvmMain/kotlin/",
+        "src/realmMain/kotlin/",
     )
 }
 
@@ -284,26 +276,22 @@ sonarqube {
         )
 
         // Multiplatform Targets
-        property(
-            "sonar.sources", listOf(
-                "src/androidMain/kotlin/",
-                "src/commonMain/kotlin/",
-                "src/darwinMain/kotlin/",
-                "src/jsMain/kotlin/",
-                "src/jvmMain/kotlin/",
-                "src/realmMain/kotlin/",
-            ).joinToString(",")
-        )
+        property("sonar.sources", listOf(
+            "src/androidMain/kotlin/",
+            "src/commonMain/kotlin/",
+            "src/darwinMain/kotlin/",
+            "src/jsMain/kotlin/",
+            "src/jvmMain/kotlin/",
+            "src/realmMain/kotlin/",
+        ).joinToString(","))
 
-        property(
-            "sonar.tests", listOf(
-                "src/androidTest/kotlin/",
-                "src/commonTest/kotlin/",
-                "src/darwinTest/kotlin/",
-                "src/jsTest/kotlin/",
-                "src/jvmTest/kotlin/",
-                "src/realmTest/kotlin/",
-            ).joinToString(",")
-        )
+        property("sonar.tests", listOf(
+            "src/androidTest/kotlin/",
+            "src/commonTest/kotlin/",
+            "src/darwinTest/kotlin/",
+            "src/jsTest/kotlin/",
+            "src/jvmTest/kotlin/",
+            "src/realmTest/kotlin/",
+        ).joinToString(","))
     }
 }

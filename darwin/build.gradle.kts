@@ -54,25 +54,21 @@ tasks {
         }
     }
 
-    val assembleXCFramework by creating {
-        dependsOn(":common:assembleXCFramework")
-    }
-
     val assembleDev by creating {
         dependsOn(setupSecrets)
-        dependsOn(assembleXCFramework)
+        dependsOn(":common:assembleCommonDebugXCFramework")
         fastLane("buildDev")
     }
 
     val assembleStg by creating{
         dependsOn(setupSecrets)
-        dependsOn(assembleXCFramework)
+        dependsOn(":common:assembleCommonReleaseXCFramework")
         fastLane("buildStg")
     }
 
     val assemblePrd by creating{
         dependsOn(setupSecrets)
-        dependsOn(assembleXCFramework)
+        dependsOn(":common:assembleCommonReleaseXCFramework")
         fastLane("buildPrd")
     }
 
@@ -94,7 +90,6 @@ tasks {
         setupSecrets,
         cleanSecrets,
         sonarqube,
-        assembleXCFramework,
         assembleDev,
         assembleStg,
         assemblePrd,

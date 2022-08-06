@@ -198,7 +198,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# BUILD_TIME_HASH indicates whether build is run from Xcode or Gradle\nif [[ -z \"${BUILD_TIME_HASH}\" ]] ; then\n    cd \"$SRCROOT/..\"\n    ./gradlew :common:assembleXCFramework\nfi\n";
+			shellScript = "# BUILD_TIME_HASH indicates whether build is run from Xcode or Gradle\nif [[ -z \"${BUILD_TIME_HASH}\" ]] ; then\n    cd \"${SRCROOT}/..\"\n    ./gradlew :common:assembleCommon${KOTLIN_FRAMEWORK_BUILD_TYPE}XCFramework\nfi\n    \n";
 		};
 /* End PBXShellScriptBuildPhase section */
 

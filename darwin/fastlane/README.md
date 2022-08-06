@@ -37,7 +37,23 @@ Build Staging
 [bundle exec] fastlane ios buildPrd
 ```
 
-Build Preview
+Build Production
+
+### ios deployStg
+
+```sh
+[bundle exec] fastlane ios deployStg
+```
+
+Deploy Staging
+
+### ios deployPrd
+
+```sh
+[bundle exec] fastlane ios deployPrd
+```
+
+Deploy Production
 
 ----
 
