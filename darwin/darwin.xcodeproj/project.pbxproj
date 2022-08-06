@@ -16,6 +16,8 @@
 		185DF39F289D2CD800A2E9FE /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 185DF39E289D2CD800A2E9FE /* FirebaseCrashlytics */; };
 		185DF3A1289D2CD800A2E9FE /* FirebasePerformance in Frameworks */ = {isa = PBXBuildFile; productRef = 185DF3A0289D2CD800A2E9FE /* FirebasePerformance */; };
 		185DF3A3289D2CD800A2E9FE /* FirebaseRemoteConfig in Frameworks */ = {isa = PBXBuildFile; productRef = 185DF3A2289D2CD800A2E9FE /* FirebaseRemoteConfig */; };
+		187BDA03289E37B100449890 /* ComponentHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187BDA02289E37B100449890 /* ComponentHolder.swift */; };
+		187BDA05289E37DF00449890 /* ObservableValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187BDA04289E37DF00449890 /* ObservableValue.swift */; };
 		2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2152FB032600AC8F00CF470E /* iOSApp.swift */; };
 		7555FF83242A565900829871 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7555FF82242A565900829871 /* ContentView.swift */; };
 /* End PBXBuildFile section */
@@ -29,6 +31,8 @@
 		186BA94A289C9E6100B8857E /* stg */ = {isa = PBXFileReference; lastKnownFileType = folder; path = stg; sourceTree = "<group>"; };
 		186BA94B289C9E6100B8857E /* dev */ = {isa = PBXFileReference; lastKnownFileType = folder; path = dev; sourceTree = "<group>"; };
 		186BA94C289C9E6100B8857E /* prd */ = {isa = PBXFileReference; lastKnownFileType = folder; path = prd; sourceTree = "<group>"; };
+		187BDA02289E37B100449890 /* ComponentHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComponentHolder.swift; sourceTree = "<group>"; };
+		187BDA04289E37DF00449890 /* ObservableValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableValue.swift; sourceTree = "<group>"; };
 		2152FB032600AC8F00CF470E /* iOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOSApp.swift; sourceTree = "<group>"; };
 		7555FF7B242A565900829871 /* method.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = method.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7555FF82242A565900829871 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -60,6 +64,15 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
+		187BDA01289E378000449890 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				187BDA02289E37B100449890 /* ComponentHolder.swift */,
+				187BDA04289E37DF00449890 /* ObservableValue.swift */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
 		7555FF72242A565900829871 = {
 			isa = PBXGroup;
 			children = (
@@ -83,6 +96,7 @@
 		7555FF7D242A565900829871 /* method */ = {
 			isa = PBXGroup;
 			children = (
+				187BDA01289E378000449890 /* Common */,
 				058557BA273AAA24004C7B11 /* Assets.xcassets */,
 				7555FF82242A565900829871 /* ContentView.swift */,
 				182421D0289C1CE9009988D6 /* GoogleService-Info.plist */,
@@ -139,7 +153,7 @@
 			attributes = {
 				LastSwiftUpdateCheck = 1130;
 				LastUpgradeCheck = 1130;
-				ORGANIZATIONNAME = orgName;
+				ORGANIZATIONNAME = "Thipok Cholsaipant";
 				TargetAttributes = {
 					7555FF7A242A565900829871 = {
 						CreatedOnToolsVersion = 11.3.1;
@@ -208,6 +222,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */,
+				187BDA03289E37B100449890 /* ComponentHolder.swift in Sources */,
+				187BDA05289E37DF00449890 /* ObservableValue.swift in Sources */,
 				7555FF83242A565900829871 /* ContentView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
