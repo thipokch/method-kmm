@@ -19,9 +19,9 @@ android {
 
     defaultConfig {
         applicationId = "ch.thipok.method.android"
-        minSdk = 21
+        minSdk = 24
         targetSdk = 32
-        versionCode = 1
+        versionCode = System.getProperty("BUILD_TIME_HASH").toInt()
         versionName = "1.0"
     }
 

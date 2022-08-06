@@ -13,7 +13,7 @@ buildscript {
     }
     dependencies {
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.7.10")
-        classpath("com.android.tools.build:gradle:7.2.1")
+        classpath("com.android.tools.build:gradle:7.2.2")
     }
 }
 
@@ -29,6 +29,8 @@ allprojects {
         google()
         mavenCentral()
     }
+
+    tasks.create("allDeps", DependencyReportTask::class)
 }
 
 extensions.findByName("buildScan")?.withGroovyBuilder {
@@ -117,22 +119,6 @@ tasks {
     }
 }
 
-gradle.taskGraph.whenReady {
-    val now = java.time.Instant.now()
-    val buildDate = java.time.format.DateTimeFormatter
-        .ofPattern("yyMMdd")
-        .withZone(java.time.ZoneOffset.UTC)
-        .format(now)
-
-    val nowHour = now.atZone(java.time.ZoneOffset.UTC).hour
-    val nowMin = now.atZone(java.time.ZoneOffset.UTC).minute
-    val buildTimeHash = "%02d".format( (nowHour * 4) + (nowMin / 15))
-
-    System.setProperty("BUILD_TIME_HASH", buildDate + buildTimeHash)
-
-    println("Set BUILD_TIME_HASH to $buildDate")
-}
-
 //
 // Helpers
 //
@@ -142,3 +128,21 @@ fun Task.play(command:String) = doLast {
         commandLine(command.split(" "))
     }
 }
+
+//
+// Build Time Hash
+//
+
+val now = java.time.Instant.now()
+val buildDate = java.time.format.DateTimeFormatter
+    .ofPattern("yyMMdd")
+    .withZone(java.time.ZoneOffset.UTC)
+    .format(now)
+
+val nowHour = now.atZone(java.time.ZoneOffset.UTC).hour
+val nowMin = now.atZone(java.time.ZoneOffset.UTC).minute
+val buildTimeHash = "%02d".format( (nowHour * 4) + (nowMin / 15))
+
+System.setProperty("BUILD_TIME_HASH", buildDate + buildTimeHash)
+
+println("Set BUILD_TIME_HASH to $buildDate$buildTimeHash")
