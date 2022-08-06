@@ -13,7 +13,7 @@ plugins {
 
     id("org.sonarqube")                 version "3.4.0.2513"    // Code Analysis Platform
     id("io.gitlab.arturbosch.detekt")   version "1.21.0"        // Kotlin Analysis + Lint
-    id("org.jetbrains.kotlinx.kover")   version "0.5.0"         // Test Coverage
+    id("org.jetbrains.kotlinx.kover")   version "0.5.1"         // Test Coverage
     id("co.touchlab.kermit")            version "1.1.3"         // Strip Logging
 
     /***** Code Utilities *****/
