@@ -56,19 +56,22 @@ tasks {
 
     val assembleDev by creating {
         dependsOn(setupSecrets)
-        dependsOn(":common:assembleCommonDebugXCFramework")
+        dependsOn(":common:assembleCommonReleaseXCFramework")
+        dependsOn(":resource:assembleResourceReleaseXCFramework")
         fastLane("buildDev")
     }
 
     val assembleStg by creating{
         dependsOn(setupSecrets)
         dependsOn(":common:assembleCommonReleaseXCFramework")
+        dependsOn(":resource:assembleResourceReleaseXCFramework")
         fastLane("buildStg")
     }
 
     val assemblePrd by creating{
         dependsOn(setupSecrets)
         dependsOn(":common:assembleCommonReleaseXCFramework")
+        dependsOn(":resource:assembleResourceReleaseXCFramework")
         fastLane("buildPrd")
     }
 

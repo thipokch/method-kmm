@@ -251,7 +251,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# BUILD_TIME_HASH indicates whether build is run from Xcode or Gradle\nif [[ ! -z \"${BUILD_TIME_HASH}\" ]] ; then\n    CRASHLYTICS_DIR=\"${BUILD_DIR%Build/*}SourcePackages/checkouts/firebase-ios-sdk-xcframeworks/Sources/FirebaseCrashlytics\"\n    ENV_PATH=\"${PROJECT_DIR}/${CONFIGURATION}/\"\n\n    $CRASHLYTICS_DIR/upload-symbols --build-phase --google-service-plist $ENV_PATH/GoogleService-Info.plist --validate\n    $CRASHLYTICS_DIR/upload-symbols --build-phase --google-service-plist $ENV_PATH/GoogleService-Info.plist\nfi\n";
+			shellScript = "# BUILD_TIME_HASH indicates whether build is run from Xcode or Gradle\nif [[ ! -z \"${BUILD_TIME_HASH}\" ]] && [ ! \"${CONFIGURATION}\" = \"dev\" ] ; then\n    CRASHLYTICS_DIR=\"${BUILD_DIR%Build/*}SourcePackages/checkouts/firebase-ios-sdk-xcframeworks/Sources/FirebaseCrashlytics\"\n    ENV_PATH=\"${PROJECT_DIR}/${CONFIGURATION}/\"\n\n    $CRASHLYTICS_DIR/upload-symbols --build-phase --google-service-plist $ENV_PATH/GoogleService-Info.plist --validate\n    $CRASHLYTICS_DIR/upload-symbols --build-phase --google-service-plist $ENV_PATH/GoogleService-Info.plist\nfi\n";
 		};
 		18F778D2289F94B6003D5A9E /* Copy Firebase Asset */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -289,7 +289,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# BUILD_TIME_HASH indicates whether build is run from Xcode or Gradle\nif [[ -z \"${BUILD_TIME_HASH}\" ]] ; then\n    cd \"${SRCROOT}/..\"\n    ./gradlew :common:assembleCommonReleaseXCFramework --info\nfi\n";
+			shellScript = "# BUILD_TIME_HASH indicates whether build is run from Xcode or Gradle\nif [[ -z \"${BUILD_TIME_HASH}\" ]] ; then\n    cd \"${SRCROOT}/..\"\n    ./gradlew :common:assembleCommonReleaseXCFramework :resource:assembleResourceReleaseXCFramework --info\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
