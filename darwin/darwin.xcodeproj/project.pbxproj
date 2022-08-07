@@ -18,6 +18,9 @@
 		185DF3A3289D2CD800A2E9FE /* FirebaseRemoteConfig in Frameworks */ = {isa = PBXBuildFile; productRef = 185DF3A2289D2CD800A2E9FE /* FirebaseRemoteConfig */; };
 		187BDA03289E37B100449890 /* ComponentHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187BDA02289E37B100449890 /* ComponentHolder.swift */; };
 		187BDA05289E37DF00449890 /* ObservableValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187BDA04289E37DF00449890 /* ObservableValue.swift */; };
+		18ACA85B289F56260098AE6E /* common.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 182421CF289BA9B0009988D6 /* common.xcframework */; };
+		18F778D5289F9B5C003D5A9E /* FontResource+Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F778D4289F9B5C003D5A9E /* FontResource+Font.swift */; };
+		18F778D8289FA727003D5A9E /* resource.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18F778D7289FA727003D5A9E /* resource.xcframework */; };
 		2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2152FB032600AC8F00CF470E /* iOSApp.swift */; };
 		7555FF83242A565900829871 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7555FF82242A565900829871 /* ContentView.swift */; };
 /* End PBXBuildFile section */
@@ -25,7 +28,6 @@
 /* Begin PBXFileReference section */
 		058557BA273AAA24004C7B11 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		058557D8273AAEEB004C7B11 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		182421CE289BA9A9009988D6 /* common.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = common.xcframework; path = ../common/build/XCFrameworks/debug/common.xcframework; sourceTree = "<group>"; };
 		182421CF289BA9B0009988D6 /* common.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = common.xcframework; path = ../common/build/XCFrameworks/release/common.xcframework; sourceTree = "<group>"; };
 		182421D0289C1CE9009988D6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		186BA94A289C9E6100B8857E /* stg */ = {isa = PBXFileReference; lastKnownFileType = folder; path = stg; sourceTree = "<group>"; };
@@ -33,6 +35,8 @@
 		186BA94C289C9E6100B8857E /* prd */ = {isa = PBXFileReference; lastKnownFileType = folder; path = prd; sourceTree = "<group>"; };
 		187BDA02289E37B100449890 /* ComponentHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComponentHolder.swift; sourceTree = "<group>"; };
 		187BDA04289E37DF00449890 /* ObservableValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableValue.swift; sourceTree = "<group>"; };
+		18F778D4289F9B5C003D5A9E /* FontResource+Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FontResource+Font.swift"; sourceTree = "<group>"; };
+		18F778D7289FA727003D5A9E /* resource.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = resource.xcframework; path = ../resource/build/XCFrameworks/release/resource.xcframework; sourceTree = "<group>"; };
 		2152FB032600AC8F00CF470E /* iOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOSApp.swift; sourceTree = "<group>"; };
 		7555FF7B242A565900829871 /* method.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = method.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7555FF82242A565900829871 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -44,6 +48,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				18ACA85B289F56260098AE6E /* common.xcframework in Frameworks */,
+				18F778D8289FA727003D5A9E /* resource.xcframework in Frameworks */,
 				185DF39B289D2CD800A2E9FE /* FirebaseAnalytics in Frameworks */,
 				185DF39F289D2CD800A2E9FE /* FirebaseCrashlytics in Frameworks */,
 				185DF3A1289D2CD800A2E9FE /* FirebasePerformance in Frameworks */,
@@ -73,6 +79,14 @@
 			path = Common;
 			sourceTree = "<group>";
 		};
+		18F778D3289F9ACD003D5A9E /* Asset */ = {
+			isa = PBXGroup;
+			children = (
+				18F778D4289F9B5C003D5A9E /* FontResource+Font.swift */,
+			);
+			path = Asset;
+			sourceTree = "<group>";
+		};
 		7555FF72242A565900829871 = {
 			isa = PBXGroup;
 			children = (
@@ -96,12 +110,13 @@
 		7555FF7D242A565900829871 /* method */ = {
 			isa = PBXGroup;
 			children = (
-				187BDA01289E378000449890 /* Common */,
-				058557BA273AAA24004C7B11 /* Assets.xcassets */,
 				7555FF82242A565900829871 /* ContentView.swift */,
+				2152FB032600AC8F00CF470E /* iOSApp.swift */,
+				058557BA273AAA24004C7B11 /* Assets.xcassets */,
 				182421D0289C1CE9009988D6 /* GoogleService-Info.plist */,
 				7555FF8C242A565B00829871 /* Info.plist */,
-				2152FB032600AC8F00CF470E /* iOSApp.swift */,
+				187BDA01289E378000449890 /* Common */,
+				18F778D3289F9ACD003D5A9E /* Asset */,
 				058557D7273AAEEB004C7B11 /* Preview Content */,
 			);
 			path = method;
@@ -110,8 +125,8 @@
 		7555FFB0242A642200829871 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				18F778D7289FA727003D5A9E /* resource.xcframework */,
 				182421CF289BA9B0009988D6 /* common.xcframework */,
-				182421CE289BA9A9009988D6 /* common.xcframework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -123,10 +138,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7555FFA5242A565B00829871 /* Build configuration list for PBXNativeTarget "method" */;
 			buildPhases = (
-				7555FFB5242A651A00829871 /* Assemble Common XCFramework */,
+				18F778D6289FA2B2003D5A9E /* Assemble Common XCFramework */,
 				7555FF77242A565900829871 /* Sources */,
 				7555FF78242A565900829871 /* Frameworks */,
 				7555FF79242A565900829871 /* Resources */,
+				1849FCAC289E86E300557468 /* Copy Common Asset */,
+				18F778D2289F94B6003D5A9E /* Copy Firebase Asset */,
 				18C26E69289E4D1C00F0ECAF /* Upload dSYM to Crashlytics */,
 			);
 			buildRules = (
@@ -196,8 +213,28 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		1849FCAC289E86E300557468 /* Copy Common Asset */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Common Asset";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "cd \"${SRCROOT}/..\"\n./gradlew :resource:copyResourcesResourceReleaseXCFrameworkToApp \\\n    -Pmoko.resources.BUILT_PRODUCTS_DIR=$BUILT_PRODUCTS_DIR \\\n    -Pmoko.resources.CONTENTS_FOLDER_PATH=$CONTENTS_FOLDER_PATH --info\n";
+		};
 		18C26E69289E4D1C00F0ECAF /* Upload dSYM to Crashlytics */ = {
 			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
 			files = (
 			);
@@ -214,9 +251,28 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# BUILD_TIME_HASH indicates whether build is run from Xcode or Gradle\nif [[ -z \"${BUILD_TIME_HASH}\" ]] ; then\n    CRASHLYTICS_DIR=\"${BUILD_DIR%Build/*}SourcePackages/checkouts/firebase-ios-sdk-xcframeworks/Sources/FirebaseCrashlytics\"\n    ENV_PATH=\"${PROJECT_DIR}/${CONFIGURATION}/\"\n\n    $CRASHLYTICS_DIR/upload-symbols --build-phase --google-service-plist $ENV_PATH/GoogleService-Info.plist --validate\n    $CRASHLYTICS_DIR/upload-symbols --build-phase --google-service-plist $ENV_PATH/GoogleService-Info.plist\nfi\n";
+			shellScript = "# BUILD_TIME_HASH indicates whether build is run from Xcode or Gradle\nif [[ ! -z \"${BUILD_TIME_HASH}\" ]] ; then\n    CRASHLYTICS_DIR=\"${BUILD_DIR%Build/*}SourcePackages/checkouts/firebase-ios-sdk-xcframeworks/Sources/FirebaseCrashlytics\"\n    ENV_PATH=\"${PROJECT_DIR}/${CONFIGURATION}/\"\n\n    $CRASHLYTICS_DIR/upload-symbols --build-phase --google-service-plist $ENV_PATH/GoogleService-Info.plist --validate\n    $CRASHLYTICS_DIR/upload-symbols --build-phase --google-service-plist $ENV_PATH/GoogleService-Info.plist\nfi\n";
 		};
-		7555FFB5242A651A00829871 /* Assemble Common XCFramework */ = {
+		18F778D2289F94B6003D5A9E /* Copy Firebase Asset */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Firebase Asset";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nsh \"${BUILD_DIR%Build/*}SourcePackages/checkouts/firebase-ios-sdk-xcframeworks/.scripts/resources.sh\"\n";
+		};
+		18F778D6289FA2B2003D5A9E /* Assemble Common XCFramework */ = {
 			isa = PBXShellScriptBuildPhase;
 			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
@@ -233,7 +289,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# BUILD_TIME_HASH indicates whether build is run from Xcode or Gradle\nif [[ -z \"${BUILD_TIME_HASH}\" ]] ; then\n    cd \"${SRCROOT}/..\"\n    ./gradlew :common:assembleCommon${KOTLIN_FRAMEWORK_BUILD_TYPE}XCFramework\nfi\n";
+			shellScript = "# BUILD_TIME_HASH indicates whether build is run from Xcode or Gradle\nif [[ -z \"${BUILD_TIME_HASH}\" ]] ; then\n    cd \"${SRCROOT}/..\"\n    ./gradlew :common:assembleCommonReleaseXCFramework --info\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -243,6 +299,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */,
+				18F778D5289F9B5C003D5A9E /* FontResource+Font.swift in Sources */,
 				187BDA03289E37B100449890 /* ComponentHolder.swift in Sources */,
 				187BDA05289E37DF00449890 /* ObservableValue.swift in Sources */,
 				7555FF83242A565900829871 /* ContentView.swift in Sources */,
@@ -317,9 +374,6 @@
 				DEVELOPMENT_TEAM = 9C25UZ547F;
 				ENABLE_BITCODE = YES;
 				ENABLE_PREVIEWS = YES;
-				FRAMEWORK_SEARCH_PATHS = "";
-				"FRAMEWORK_SEARCH_PATHS[sdk=iphoneos*]" = "$(SRCROOT)/../common/build/XCFrameworks/release/common.xcframework/ios-arm64";
-				"FRAMEWORK_SEARCH_PATHS[sdk=iphonesimulator*]" = "$(SRCROOT)/../common/build/XCFrameworks/release/common.xcframework/ios-arm64_x86_64-simulator";
 				INFOPLIST_FILE = "$(PRODUCT_NAME)/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = Method;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -466,11 +520,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_ASSET_PATHS = "\"$(PRODUCT_NAME)/Preview Content\"";
 				DEVELOPMENT_TEAM = 9C25UZ547F;
-				ENABLE_BITCODE = NO;
 				ENABLE_PREVIEWS = YES;
-				FRAMEWORK_SEARCH_PATHS = "";
-				"FRAMEWORK_SEARCH_PATHS[sdk=iphoneos*]" = "$(SRCROOT)/../common/build/XCFrameworks/debug/common.xcframework/ios-arm64";
-				"FRAMEWORK_SEARCH_PATHS[sdk=iphonesimulator*]" = "$(SRCROOT)/../common/build/XCFrameworks/debug/common.xcframework/ios-arm64_x86_64-simulator";
 				INFOPLIST_FILE = "$(PRODUCT_NAME)/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Method Dev";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -479,7 +529,6 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-framework",
@@ -503,8 +552,6 @@
 				DEVELOPMENT_TEAM = 9C25UZ547F;
 				ENABLE_BITCODE = YES;
 				ENABLE_PREVIEWS = YES;
-				"FRAMEWORK_SEARCH_PATHS[sdk=iphoneos*]" = "$(SRCROOT)/../common/build/XCFrameworks/release/common.xcframework/ios-arm64";
-				"FRAMEWORK_SEARCH_PATHS[sdk=iphonesimulator*]" = "$(SRCROOT)/../common/build/XCFrameworks/release/common.xcframework/ios-arm64_x86_64-simulator";
 				INFOPLIST_FILE = "$(PRODUCT_NAME)/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Method Stg";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;

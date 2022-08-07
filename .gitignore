@@ -12,3 +12,4 @@ local.properties
 .env
 *.cer
 *.mobileprovision
+moko-resources-generated.js

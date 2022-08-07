@@ -9,6 +9,7 @@ pluginManagement {
 rootProject.name = "Method"
 include(
     ":common",
+    ":resource",
     ":android",
     ":darwin",
     ":web"

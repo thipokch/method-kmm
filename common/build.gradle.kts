@@ -1,5 +1,6 @@
 import com.android.build.gradle.internal.tasks.factory.dependsOn
 import org.jetbrains.kotlin.gradle.plugin.mpp.apple.XCFramework
+import org.jetbrains.kotlin.gradle.plugin.mpp.BitcodeEmbeddingMode
 
 //
 // Gradle Plugins
@@ -62,8 +63,6 @@ kotlin {
                 export("com.arkivanov.essenty:lifecycle:0.4.2")
                     // Logging
                 export("co.touchlab:kermit:1.1.3")
-                    // implementation("co.touchlab:kermit-koin:1.1.3")
-                    // See: https://github.com/touchlab/Kermit/issues/264
 
                 baseName = "common"
                 isStatic = true
@@ -77,6 +76,8 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
+
+                implementation(project(":resource"))
 
                 /***** Architecture & Frameworks *****/
 
@@ -223,6 +224,7 @@ kotlin {
             // https://youtrack.jetbrains.com/issue/KT-42298
             // https://github.com/realm/realm-kotlin/blob/76f9654ec1fac5ad7fe2ecbe753be93b73859116/README.md
             // https://github.com/realm/realm-kotlin/pull/187
+
             androidTest.dependsOn(this)
             darwinTest.dependsOn(this)
             jvmTest.dependsOn(this)
