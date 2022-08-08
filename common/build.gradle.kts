@@ -60,7 +60,7 @@ kotlin {
                     // State management via Model-View-Intent
                 export("com.arkivanov.mvikotlin:mvikotlin-main:3.0.1")
                     // Lifecycle
-                export("com.arkivanov.essenty:lifecycle:0.4.2")
+                export("com.arkivanov.essenty:lifecycle:0.5.2")
                     // Logging
                 export("co.touchlab:kermit:1.1.3")
 
