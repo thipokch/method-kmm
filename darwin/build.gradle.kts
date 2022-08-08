@@ -58,21 +58,21 @@ tasks {
         dependsOn(setupSecrets)
         dependsOn(":common:assembleCommonReleaseXCFramework")
         dependsOn(":resource:assembleResourceReleaseXCFramework")
-        fastLane("buildDev")
+        fastBuild("buildDev")
     }
 
     val assembleStg by creating{
         dependsOn(setupSecrets)
         dependsOn(":common:assembleCommonReleaseXCFramework")
         dependsOn(":resource:assembleResourceReleaseXCFramework")
-        fastLane("buildStg")
+        fastBuild("buildStg")
     }
 
     val assemblePrd by creating{
         dependsOn(setupSecrets)
         dependsOn(":common:assembleCommonReleaseXCFramework")
         dependsOn(":resource:assembleResourceReleaseXCFramework")
-        fastLane("buildPrd")
+        fastBuild("buildPrd")
     }
 
     val build by creating {
@@ -82,11 +82,15 @@ tasks {
     }
 
     val deployStg by creating{
-        fastLane("deployStg")
+        fastDeploy("deployStg")
+    }
+
+    val deployDev by creating{
+        fastDeploy("deployDev")
     }
 
     val deployPrd by creating{
-        fastLane("deployPrd")
+        fastDeploy("deployPrd")
     }
 
     listOf(
@@ -108,12 +112,31 @@ tasks {
 // Helpers
 //
 
-fun Task.fastLane(lane: String) {
+fun Task.fastBuild(lane: String) {
     doLast {
         exec {
             environment("BUILD_TIME_HASH", System.getProperty("BUILD_TIME_HASH").toString())
             environment("MATCH_PASSWORD", env.fetch("SECRETS_PASSWORD"))
             environment("MATCH_GIT_REPO", rootProject.buildDir.resolve(".secrets").path)
+
+            workingDir = projectDir
+            executable = "bundle"
+            args = listOf(
+                "exec",
+                "fastlane",
+                "ios",
+                lane,
+            )
+        }
+    }
+}
+
+fun Task.fastDeploy(lane: String) {
+    doLast {
+        exec {
+            environment("ASC_KEY_ID",env.fetch("ASC_KEY_ID"))
+            environment("ASC_ISSUER_ID", env.fetch("ASC_ISSUER_ID"))
+            environment("ASC_KEY_CONTENT", env.fetch("ASC_KEY_CONTENT"))
 
             workingDir = projectDir
             executable = "bundle"

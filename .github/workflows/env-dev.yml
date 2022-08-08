@@ -76,7 +76,12 @@ jobs:
           name: android-apk
           path: android/build/outputs/apk
 
-      # No Dev Deployment
+      - name: Gradle deploy
+        env:
+          ASC_KEY_ID: ${{ secrets.ASC_KEY_ID }}
+          ASC_ISSUER_ID: ${{ secrets.ASC_ISSUER_ID }}
+          ASC_KEY_CONTENT: ${{ secrets.ASC_KEY_CONTENT }}
+        run: ./gradlew deployDev --scan --info --stacktrace
 
       - name: Upload logs
         if: ${{ always() }}

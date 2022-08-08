@@ -28,12 +28,20 @@ platform :ios do
             storage_mode: "git",
             readonly: is_ci,
         )
+        match(
+            type: "appstore",
+            app_identifier: "ch.thipok.method.dev",
+            git_url: ENV["MATCH_GIT_REPO"],
+            # MATCH_PASSWORD env for match password
+            storage_mode: "git",
+            readonly: is_ci,
+        )
         increment_build_number(
           build_number: ENV["BUILD_TIME_HASH"],
         )
         build_app(
             scheme: "dev",
-            export_method: "development",
+            export_method: "app-store",
             output_directory: "./build/outputs/ipa/dev",
         )
     end
@@ -77,6 +85,25 @@ platform :ios do
             scheme: "prd",
             export_method: "app-store",
             output_directory: "./build/outputs/ipa/prd",
+        )
+    end
+
+    desc "Deploy Development"
+    lane :deployDev do
+        app_store_connect_api_key(
+            key_id: ENV["ASC_KEY_ID"],
+            issuer_id: ENV["ASC_ISSUER_ID"],
+            key_content: ENV["ASC_KEY_CONTENT"],
+            is_key_content_base64: true,
+            in_house: false,
+        )
+        upload_to_testflight(
+            ipa: "./build/outputs/ipa/dev/method.ipa",
+            beta_app_feedback_email: "me@thipok.ch",
+            beta_app_description: "Experiment with your thought.",
+            demo_account_required: false,
+            notify_external_testers: true,
+            changelog: ENV["BUILD_TIME_HASH"],
         )
     end
 
