@@ -50,6 +50,7 @@ kotlin {
                 /***** XCFramework Export *****/
 
                 export("dev.icerock.moko:resources:0.20.1")
+                export("dev.icerock.moko:graphics:0.9.0")
 
                 baseName = "resource"
                 isStatic = true
@@ -72,6 +73,7 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 api("dev.icerock.moko:resources:0.20.1")
+                api("dev.icerock.moko:graphics:0.9.0")
             }
              androidMain.dependsOn(this)
              jsMain.dependsOn(this)

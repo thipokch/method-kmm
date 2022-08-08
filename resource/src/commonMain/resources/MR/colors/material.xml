@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- format: #RRGGBB[AA] or 0xRRGGBB[AA] or RRGGBB[AA] where [AA] - optional -->
+    <color name="Primary">
+        <light>#6750A4</light>
+        <dark>#D0BCFF</dark>
+    </color>
+    <color name="PrimaryContainer">
+        <light>#EADDFF</light>
+        <dark>#4F378B</dark>
+    </color>
+    <color name="Secondary">
+        <light>#625B71</light>
+        <dark>#CCC2DC</dark>
+    </color>
+    <color name="SecondaryContainer">
+        <light>#E8DEF8</light>
+        <dark>#4A4458</dark>
+    </color>
+    <color name="Tertiary">
+        <light>#7D5260</light>
+        <dark>#EFB8C8</dark>
+    </color>
+    <color name="TertiaryContainer">
+        <light>#FFD8E4</light>
+        <dark>#633B48</dark>
+    </color>
+    <color name="Surface">
+        <light>#FFFBFE</light>
+        <dark>#1C1B1F</dark>
+    </color>
+    <color name="SurfaceVariant">
+        <light>#E7E0EC</light>
+        <dark>#49454F</dark>
+    </color>
+    <color name="Background">
+        <light>#FFFBFE</light>
+        <dark>#1C1B1F</dark>
+    </color>
+    <color name="Error">
+        <light>#B3261E</light>
+        <dark>#F2B8B5</dark>
+    </color>
+    <color name="ErrorContainer">
+        <light>#F9DEDC</light>
+        <dark>#8C1D18</dark>
+    </color>
+    <color name="OnPrimary">
+        <light>#FFFFFF</light>
+        <dark>#371E73</dark>
+    </color>
+    <color name="OnPrimaryContainer">
+        <light>#21005E</light>
+        <dark>#EADDFF</dark>
+    </color>
+    <color name="OnSecondary">
+        <light>#FFFFFF</light>
+        <dark>#332D41</dark>
+    </color>
+    <color name="OnSecondaryContainer">
+        <light>#1E192B</light>
+        <dark>#E8DEF8</dark>
+    </color>
+    <color name="OnTertiary">
+        <light>#FFFFFF</light>
+        <dark>#492532</dark>
+    </color>
+    <color name="OnTertiaryContainer">
+        <light>#370B1E</light>
+        <dark>#FFD8E4</dark>
+    </color>
+    <color name="OnSurface">
+        <light>#1C1B1F</light>
+        <dark>#E6E1E5</dark>
+    </color>
+    <color name="OnSurfaceVariant">
+        <light>#49454E</light>
+        <dark>#CAC4D0</dark>
+    </color>
+    <color name="OnError">
+        <light>#FFFFFF</light>
+        <dark>#601410</dark>
+    </color>
+    <color name="OnErrorContainer">
+        <light>#370B1E</light>
+        <dark>#F9DEDC</dark>
+    </color>
+    <color name="OnBackground">
+        <light>#1C1B1F</light>
+        <dark>#E6E1E5</dark>
+    </color>
+    <color name="Outline">
+        <light>#79747E</light>
+        <dark>#938F99</dark>
+    </color>
+    <color name="Shadow">
+        <light>#000000</light>
+        <dark>#000000</dark>
+    </color>
+    <color name="SurfaceTint">
+        <light>#6750A4</light>
+        <dark>#D0BCFF</dark>
+    </color>
+    <color name="InverseSurface">
+        <light>#313033</light>
+        <dark>#E6E1E5</dark>
+    </color>
+    <color name="InverseOnSurface">
+        <light>#F4EFF4</light>
+        <dark>#313033</dark>
+    </color>
+    <color name="InversePrimary">
+        <light>#D0BCFF</light>
+        <dark>#6750A4</dark>
+    </color>
+</resources>
