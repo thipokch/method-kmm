@@ -103,7 +103,7 @@ kotlin {
                     // Universally Unique Identifier Structure
                 implementation("com.benasher44:uuid:0.4.1")
                     // Uniform Resource Identifier
-                implementation("com.eygraber:uri-kmp:0.0.4")
+                implementation("com.eygraber:uri-kmp:0.0.6")
                     // Semantic Versioning
                 implementation("io.github.z4kn4fein:semver:1.3.3")
                     // Logging
