@@ -134,14 +134,14 @@ fun Task.play(command:String) = doLast {
 //
 
 val now = java.time.Instant.now()
-val buildDate = java.time.format.DateTimeFormatter
+val buildDate : String = java.time.format.DateTimeFormatter
     .ofPattern("yyMMdd")
     .withZone(java.time.ZoneOffset.UTC)
     .format(now)
 
 val nowHour = now.atZone(java.time.ZoneOffset.UTC).hour
 val nowMin = now.atZone(java.time.ZoneOffset.UTC).minute
-val buildTimeHash = "%02d".format( (nowHour * 4) + (nowMin / 15))
+val buildTimeHash : String = "%02d".format( (nowHour * 4) + (nowMin / 15))
 
 System.setProperty("BUILD_TIME_HASH", buildDate + buildTimeHash)
 

@@ -39,6 +39,14 @@ Build Staging
 
 Build Production
 
+### ios deployDev
+
+```sh
+[bundle exec] fastlane ios deployDev
+```
+
+Deploy Development
+
 ### ios deployStg
 
 ```sh

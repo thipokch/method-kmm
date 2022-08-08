@@ -114,10 +114,17 @@ tasks {
 
 fun Task.fastBuild(lane: String) {
     doLast {
+        println("Build number: ${System.getProperty("BUILD_TIME_HASH")}")
         exec {
-            environment("BUILD_TIME_HASH", System.getProperty("BUILD_TIME_HASH").toString())
-            environment("MATCH_PASSWORD", env.fetch("SECRETS_PASSWORD"))
-            environment("MATCH_GIT_REPO", rootProject.buildDir.resolve(".secrets").path)
+            environment(
+                "FL_BUILD_NUMBER_BUILD_NUMBER",
+                System.getProperty("BUILD_TIME_HASH").toString())
+            environment(
+                "MATCH_PASSWORD",
+                env.fetch("SECRETS_PASSWORD"))
+            environment(
+                "MATCH_GIT_URL",
+                rootProject.buildDir.resolve(".secrets").path)
 
             workingDir = projectDir
             executable = "bundle"
