@@ -56,7 +56,7 @@ kotlin {
                 /***** XCFramework Export *****/
 
                     // Business Logic Components (BLoCs) with routing
-                export("com.arkivanov.decompose:decompose:0.7.0")
+                export("com.arkivanov.decompose:decompose:0.8.0-native-compose-02")
                     // State management via Model-View-Intent
                 export("com.arkivanov.mvikotlin:mvikotlin-main:3.0.1")
                     // Lifecycle
