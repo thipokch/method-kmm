@@ -7,11 +7,7 @@ struct ContentView: View {
     
     var body: some View {
         Text("scientific methods")
-            .font(
-                MethodTypography.shared
-                    .titleLarge
-                    .font(withSize: 20.0)
-        )
+            .font(MethodTypography.TitleLarge.shared.swiftFont)
     }
 }
 

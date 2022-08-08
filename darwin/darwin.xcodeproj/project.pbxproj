@@ -10,6 +10,7 @@
 		058557BB273AAA24004C7B11 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 058557BA273AAA24004C7B11 /* Assets.xcassets */; };
 		058557D9273AAEEB004C7B11 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 058557D8273AAEEB004C7B11 /* Preview Assets.xcassets */; };
 		182421D2289C23EA009988D6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 182421D0289C1CE9009988D6 /* GoogleService-Info.plist */; };
+		1848E9C228A09C7700DB6324 /* TypographySet+Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1848E9C128A09C7700DB6324 /* TypographySet+Font.swift */; };
 		185DF399289D2CD800A2E9FE /* FirebaseABTesting in Frameworks */ = {isa = PBXBuildFile; productRef = 185DF398289D2CD800A2E9FE /* FirebaseABTesting */; };
 		185DF39B289D2CD800A2E9FE /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 185DF39A289D2CD800A2E9FE /* FirebaseAnalytics */; };
 		185DF39D289D2CD800A2E9FE /* FirebaseAppCheck in Frameworks */ = {isa = PBXBuildFile; productRef = 185DF39C289D2CD800A2E9FE /* FirebaseAppCheck */; };
@@ -19,7 +20,6 @@
 		187BDA03289E37B100449890 /* ComponentHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187BDA02289E37B100449890 /* ComponentHolder.swift */; };
 		187BDA05289E37DF00449890 /* ObservableValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187BDA04289E37DF00449890 /* ObservableValue.swift */; };
 		18ACA85B289F56260098AE6E /* common.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 182421CF289BA9B0009988D6 /* common.xcframework */; };
-		18F778D5289F9B5C003D5A9E /* FontResource+Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F778D4289F9B5C003D5A9E /* FontResource+Font.swift */; };
 		18F778D8289FA727003D5A9E /* resource.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18F778D7289FA727003D5A9E /* resource.xcframework */; };
 		2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2152FB032600AC8F00CF470E /* iOSApp.swift */; };
 		7555FF83242A565900829871 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7555FF82242A565900829871 /* ContentView.swift */; };
@@ -30,12 +30,12 @@
 		058557D8273AAEEB004C7B11 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		182421CF289BA9B0009988D6 /* common.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = common.xcframework; path = ../common/build/XCFrameworks/release/common.xcframework; sourceTree = "<group>"; };
 		182421D0289C1CE9009988D6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		1848E9C128A09C7700DB6324 /* TypographySet+Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TypographySet+Font.swift"; sourceTree = "<group>"; };
 		186BA94A289C9E6100B8857E /* stg */ = {isa = PBXFileReference; lastKnownFileType = folder; path = stg; sourceTree = "<group>"; };
 		186BA94B289C9E6100B8857E /* dev */ = {isa = PBXFileReference; lastKnownFileType = folder; path = dev; sourceTree = "<group>"; };
 		186BA94C289C9E6100B8857E /* prd */ = {isa = PBXFileReference; lastKnownFileType = folder; path = prd; sourceTree = "<group>"; };
 		187BDA02289E37B100449890 /* ComponentHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComponentHolder.swift; sourceTree = "<group>"; };
 		187BDA04289E37DF00449890 /* ObservableValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableValue.swift; sourceTree = "<group>"; };
-		18F778D4289F9B5C003D5A9E /* FontResource+Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FontResource+Font.swift"; sourceTree = "<group>"; };
 		18F778D7289FA727003D5A9E /* resource.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = resource.xcframework; path = ../resource/build/XCFrameworks/release/resource.xcframework; sourceTree = "<group>"; };
 		2152FB032600AC8F00CF470E /* iOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOSApp.swift; sourceTree = "<group>"; };
 		7555FF7B242A565900829871 /* method.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = method.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -79,12 +79,12 @@
 			path = Common;
 			sourceTree = "<group>";
 		};
-		18F778D3289F9ACD003D5A9E /* Asset */ = {
+		18F778D3289F9ACD003D5A9E /* Resource */ = {
 			isa = PBXGroup;
 			children = (
-				18F778D4289F9B5C003D5A9E /* FontResource+Font.swift */,
+				1848E9C128A09C7700DB6324 /* TypographySet+Font.swift */,
 			);
-			path = Asset;
+			path = Resource;
 			sourceTree = "<group>";
 		};
 		7555FF72242A565900829871 = {
@@ -116,7 +116,7 @@
 				182421D0289C1CE9009988D6 /* GoogleService-Info.plist */,
 				7555FF8C242A565B00829871 /* Info.plist */,
 				187BDA01289E378000449890 /* Common */,
-				18F778D3289F9ACD003D5A9E /* Asset */,
+				18F778D3289F9ACD003D5A9E /* Resource */,
 				058557D7273AAEEB004C7B11 /* Preview Content */,
 			);
 			path = method;
@@ -299,7 +299,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */,
-				18F778D5289F9B5C003D5A9E /* FontResource+Font.swift in Sources */,
+				1848E9C228A09C7700DB6324 /* TypographySet+Font.swift in Sources */,
 				187BDA03289E37B100449890 /* ComponentHolder.swift in Sources */,
 				187BDA05289E37DF00449890 /* ObservableValue.swift in Sources */,
 				7555FF83242A565900829871 /* ContentView.swift in Sources */,
