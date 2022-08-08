@@ -134,9 +134,9 @@ fun Task.fastBuild(lane: String) {
 fun Task.fastDeploy(lane: String) {
     doLast {
         exec {
-            environment("ASC_KEY_ID",env.fetch("ASC_KEY_ID"))
-            environment("ASC_ISSUER_ID", env.fetch("ASC_ISSUER_ID"))
-            environment("ASC_KEY_CONTENT", env.fetch("ASC_KEY_CONTENT"))
+            environment("APP_STORE_CONNECT_API_KEY_KEY_ID", env.fetch("ASC_KEY_ID"))
+            environment("APP_STORE_CONNECT_API_KEY_ISSUER_ID", env.fetch("ASC_ISSUER_ID"))
+            environment("APP_STORE_CONNECT_API_KEY_KEY", env.fetch("ASC_KEY_CONTENT"))
 
             workingDir = projectDir
             executable = "bundle"
