@@ -352,6 +352,7 @@
 					"$(inherited)",
 					"-framework",
 					common,
+					"-ObjC",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = ch.thipok.method;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -500,6 +501,7 @@
 					"$(inherited)",
 					"-framework",
 					common,
+					"-ObjC",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = ch.thipok.method.dev;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -533,6 +535,7 @@
 					"$(inherited)",
 					"-framework",
 					common,
+					"-ObjC",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = ch.thipok.method.stg;
 				PRODUCT_NAME = "$(TARGET_NAME)";

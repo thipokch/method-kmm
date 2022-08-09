@@ -19,7 +19,7 @@ fun initKoin(appDeclaration: KoinAppDeclaration = {}) =
         )
     }
 
-// called by iOS
+// called by Darwin
 fun initKoin() = initKoin {}
 
 fun commonModules(): Module = module {
