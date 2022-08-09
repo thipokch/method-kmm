@@ -19,6 +19,7 @@
 		185DF3A3289D2CD800A2E9FE /* FirebaseRemoteConfig in Frameworks */ = {isa = PBXBuildFile; productRef = 185DF3A2289D2CD800A2E9FE /* FirebaseRemoteConfig */; };
 		187BDA03289E37B100449890 /* ComponentHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187BDA02289E37B100449890 /* ComponentHolder.swift */; };
 		187BDA05289E37DF00449890 /* ObservableValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187BDA04289E37DF00449890 /* ObservableValue.swift */; };
+		189A762528A1FA6D00B3199F /* Method:resource.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 189A762428A1FA6D00B3199F /* Method:resource.bundle */; };
 		18ACA85B289F56260098AE6E /* common.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 182421CF289BA9B0009988D6 /* common.xcframework */; };
 		18F778D8289FA727003D5A9E /* resource.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18F778D7289FA727003D5A9E /* resource.xcframework */; };
 		2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2152FB032600AC8F00CF470E /* iOSApp.swift */; };
@@ -36,6 +37,7 @@
 		186BA94C289C9E6100B8857E /* prd */ = {isa = PBXFileReference; lastKnownFileType = folder; path = prd; sourceTree = "<group>"; };
 		187BDA02289E37B100449890 /* ComponentHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComponentHolder.swift; sourceTree = "<group>"; };
 		187BDA04289E37DF00449890 /* ObservableValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableValue.swift; sourceTree = "<group>"; };
+		189A762428A1FA6D00B3199F /* Method:resource.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = "Method:resource.bundle"; path = "../resource/build/XCFrameworks/release/resource.xcframework/ios-arm64/resource.framework/Method:resource.bundle"; sourceTree = "<group>"; };
 		18F778D7289FA727003D5A9E /* resource.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = resource.xcframework; path = ../resource/build/XCFrameworks/release/resource.xcframework; sourceTree = "<group>"; };
 		2152FB032600AC8F00CF470E /* iOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOSApp.swift; sourceTree = "<group>"; };
 		7555FF7B242A565900829871 /* method.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = method.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -127,6 +129,7 @@
 			children = (
 				18F778D7289FA727003D5A9E /* resource.xcframework */,
 				182421CF289BA9B0009988D6 /* common.xcframework */,
+				189A762428A1FA6D00B3199F /* Method:resource.bundle */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -142,8 +145,6 @@
 				7555FF77242A565900829871 /* Sources */,
 				7555FF78242A565900829871 /* Frameworks */,
 				7555FF79242A565900829871 /* Resources */,
-				1849FCAC289E86E300557468 /* Copy Common Asset */,
-				18F778D2289F94B6003D5A9E /* Copy Firebase Asset */,
 				18C26E69289E4D1C00F0ECAF /* Upload dSYM to Crashlytics */,
 			);
 			buildRules = (
@@ -207,31 +208,13 @@
 				182421D2289C23EA009988D6 /* GoogleService-Info.plist in Resources */,
 				058557D9273AAEEB004C7B11 /* Preview Assets.xcassets in Resources */,
 				058557BB273AAA24004C7B11 /* Assets.xcassets in Resources */,
+				189A762528A1FA6D00B3199F /* Method:resource.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		1849FCAC289E86E300557468 /* Copy Common Asset */ = {
-			isa = PBXShellScriptBuildPhase;
-			alwaysOutOfDate = 1;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = "Copy Common Asset";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "cd \"${SRCROOT}/..\"\n./gradlew :resource:copyResourcesResourceReleaseXCFrameworkToApp \\\n    -Pmoko.resources.BUILT_PRODUCTS_DIR=$BUILT_PRODUCTS_DIR \\\n    -Pmoko.resources.CONTENTS_FOLDER_PATH=$CONTENTS_FOLDER_PATH --info\n";
-		};
 		18C26E69289E4D1C00F0ECAF /* Upload dSYM to Crashlytics */ = {
 			isa = PBXShellScriptBuildPhase;
 			alwaysOutOfDate = 1;
@@ -251,26 +234,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# BUILD_TIME_HASH indicates whether build is run from Xcode or Gradle\nif [[ ! -z \"${BUILD_TIME_HASH}\" ]] && [ ! \"${CONFIGURATION}\" = \"dev\" ] ; then\n    CRASHLYTICS_DIR=\"${BUILD_DIR%Build/*}SourcePackages/checkouts/firebase-ios-sdk-xcframeworks/Sources/FirebaseCrashlytics\"\n    ENV_PATH=\"${PROJECT_DIR}/${CONFIGURATION}/\"\n\n    $CRASHLYTICS_DIR/upload-symbols --build-phase --google-service-plist $ENV_PATH/GoogleService-Info.plist --validate\n    $CRASHLYTICS_DIR/upload-symbols --build-phase --google-service-plist $ENV_PATH/GoogleService-Info.plist\nfi\n";
-		};
-		18F778D2289F94B6003D5A9E /* Copy Firebase Asset */ = {
-			isa = PBXShellScriptBuildPhase;
-			alwaysOutOfDate = 1;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = "Copy Firebase Asset";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nsh \"${BUILD_DIR%Build/*}SourcePackages/checkouts/firebase-ios-sdk-xcframeworks/.scripts/resources.sh\"\n";
+			shellScript = "# BUILD_TIME_HASH indicates whether build is run from Xcode or Gradle\nif [[ -z \"${BUILD_TIME_HASH}\" ]] ; then\n    echo \"Skipped publishing debug symbols to Firebase Crashlytics\"\nelse\n    CRASHLYTICS_DIR=\"${BUILD_DIR%Build/*}SourcePackages/checkouts/firebase-ios-sdk-xcframeworks/Sources/FirebaseCrashlytics\"\n    ENV_PATH=\"${PROJECT_DIR}/${CONFIGURATION}/\"\n    \n    echo \"Publishing debug symbols for ${BUILD_TIME_HASH}-${CONFIGURATION} to Firebase Crashlytics\"\n\n    $CRASHLYTICS_DIR/upload-symbols --build-phase --google-service-plist $ENV_PATH/GoogleService-Info.plist --validate\n    $CRASHLYTICS_DIR/upload-symbols --build-phase --google-service-plist $ENV_PATH/GoogleService-Info.plist\nfi\n";
 		};
 		18F778D6289FA2B2003D5A9E /* Assemble Common XCFramework */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -289,7 +253,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# BUILD_TIME_HASH indicates whether build is run from Xcode or Gradle\nif [[ -z \"${BUILD_TIME_HASH}\" ]] ; then\n    cd \"${SRCROOT}/..\"\n    ./gradlew :common:assembleCommonReleaseXCFramework :resource:assembleResourceReleaseXCFramework --info\nfi\n";
+			shellScript = "# BUILD_TIME_HASH indicates whether build is run from Xcode or Gradle\nif [[ -z \"${BUILD_TIME_HASH}\" ]] ; then\n    echo \"Building Common and Resource XCFramework (Release)\"\n    cd \"${SRCROOT}/..\"\n    ./gradlew :common:assembleCommonReleaseXCFramework :resource:assembleResourceReleaseXCFramework --info\nelse\n    echo \"Skipped building Common and Resource XCFramework (Release)\"\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -520,7 +484,6 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 22080867;
-				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_ASSET_PATHS = "\"$(PRODUCT_NAME)/Preview Content\"";
 				DEVELOPMENT_TEAM = 9C25UZ547F;
 				ENABLE_PREVIEWS = YES;

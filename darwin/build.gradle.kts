@@ -47,8 +47,8 @@ tasks {
                     "-Dsonar.projectName=method.darwin",
                     "-Dsonar.projectKey=method.darwin",
                     "-Dsonar.projectBaseDir=method",
-                    "-Dsonar.verbose=true",
                     "-Dsonar.host.url=https://sonarcloud.io",
+//                    "-Dsonar.verbose=true",
                 )
             }
         }
@@ -100,6 +100,7 @@ tasks {
         assembleDev,
         assembleStg,
         assemblePrd,
+        deployDev,
         deployStg,
         deployPrd,
         build,

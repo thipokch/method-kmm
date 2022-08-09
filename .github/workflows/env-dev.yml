@@ -62,7 +62,14 @@ jobs:
           SECRETS_PASSWORD: ${{ secrets.SECRETS_PASSWORD }}
           SECRETS_REPO: ${{ secrets.SECRETS_REPO }}
           GRGIT_USER: ${{ secrets.GRGIT_USER }}
-        run: ./gradlew assembleDev check sonarqube --scan --info --stacktrace
+        run: ./gradlew assembleDev check sonarqube --scan
+
+      - name: Gradle deploy
+        env:
+          ASC_KEY_ID: ${{ secrets.ASC_KEY_ID }}
+          ASC_ISSUER_ID: ${{ secrets.ASC_ISSUER_ID }}
+          ASC_KEY_CONTENT: ${{ secrets.ASC_KEY_CONTENT }}
+        run: ./gradlew deployStg --scan
 
       - name: Upload IPA
         uses: actions/upload-artifact@master
@@ -75,13 +82,6 @@ jobs:
         with:
           name: android-apk
           path: android/build/outputs/apk
-
-      - name: Gradle deploy
-        env:
-          ASC_KEY_ID: ${{ secrets.ASC_KEY_ID }}
-          ASC_ISSUER_ID: ${{ secrets.ASC_ISSUER_ID }}
-          ASC_KEY_CONTENT: ${{ secrets.ASC_KEY_CONTENT }}
-        run: ./gradlew deployDev --scan --info --stacktrace
 
       - name: Upload logs
         if: ${{ always() }}
