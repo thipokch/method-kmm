@@ -127,8 +127,8 @@
 		7555FFB0242A642200829871 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				18F778D7289FA727003D5A9E /* resource.xcframework */,
 				182421CF289BA9B0009988D6 /* common.xcframework */,
+				18F778D7289FA727003D5A9E /* resource.xcframework */,
 				189A762428A1FA6D00B3199F /* Method:resource.bundle */,
 			);
 			name = Frameworks;

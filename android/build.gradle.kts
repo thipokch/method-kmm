@@ -106,6 +106,24 @@ tasks {
         }
     }
 
+    val buildDev by creating {
+        group = "build"
+        dependsOn(check)
+        dependsOn("assembleDev")
+    }
+
+    val buildStg by creating {
+        group = "build"
+        dependsOn(check)
+        dependsOn("assembleStg")
+    }
+
+    val buildPrd by creating {
+        group = "build"
+        dependsOn(check)
+        dependsOn("assemblePrd")
+    }
+
     sonarqube.dependsOn(koverVerify)
     build.dependsOn(setupSecrets)
 }
@@ -121,15 +139,13 @@ detekt {
     )
 }
 
-sonarqube {
-    properties {
-        property("sonar.projectName", "method.android")
-        property("sonar.projectKey", "method.android")
-        property("sonar.organization", "thipokch")
-        property("sonar.host.url", "https://sonarcloud.io")
+sonarqube.properties {
+    property("sonar.projectName", "method.android")
+    property("sonar.projectKey", "method.android")
+    property("sonar.organization", "thipokch")
+    property("sonar.host.url", "https://sonarcloud.io")
 
-        // Code Reports
-        property("sonar.kotlin.detekt.reportPaths", buildDir.resolve("reports/detekt/detekt.xml"))
-        property("sonar.coverage.jacoco.xmlReportPaths", buildDir.resolve("reports/kover/report.xml"))
-    }
+    // Code Reports
+    property("sonar.kotlin.detekt.reportPaths", buildDir.resolve("reports/detekt/detekt.xml"))
+    property("sonar.coverage.jacoco.xmlReportPaths", buildDir.resolve("reports/kover/report.xml"))
 }

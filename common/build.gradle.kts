@@ -263,37 +263,35 @@ detekt {
 
 tasks.sonarqube.dependsOn(tasks.koverVerify)
 
-sonarqube {
-    properties {
-        property("sonar.projectName", "method.common")
-        property("sonar.projectKey", "method.common")
-        property("sonar.organization", "thipokch")
-        property("sonar.host.url", "https://sonarcloud.io")
+sonarqube.properties {
+    property("sonar.projectName", "method.common")
+    property("sonar.projectKey", "method.common")
+    property("sonar.organization", "thipokch")
+    property("sonar.host.url", "https://sonarcloud.io")
 
-        // Code Reports
-        property("sonar.kotlin.detekt.reportPaths", buildDir.resolve("reports/detekt/detekt.xml"))
-        property(
-            "sonar.coverage.jacoco.xmlReportPaths",
-            buildDir.resolve("reports/kover/report.xml")
-        )
+    // Code Reports
+    property("sonar.kotlin.detekt.reportPaths", buildDir.resolve("reports/detekt/detekt.xml"))
+    property(
+        "sonar.coverage.jacoco.xmlReportPaths",
+        buildDir.resolve("reports/kover/report.xml")
+    )
 
-        // Multiplatform Targets
-        property("sonar.sources", listOf(
-            "src/androidMain/kotlin/",
-            "src/commonMain/kotlin/",
-            "src/darwinMain/kotlin/",
-            "src/jsMain/kotlin/",
-            "src/jvmMain/kotlin/",
-            "src/realmMain/kotlin/",
-        ).joinToString(","))
+    // Multiplatform Targets
+    property("sonar.sources", listOf(
+        "src/androidMain/kotlin/",
+        "src/commonMain/kotlin/",
+        "src/darwinMain/kotlin/",
+        "src/jsMain/kotlin/",
+        "src/jvmMain/kotlin/",
+        "src/realmMain/kotlin/",
+    ).joinToString(","))
 
-        property("sonar.tests", listOf(
-            "src/androidTest/kotlin/",
-            "src/commonTest/kotlin/",
-            "src/darwinTest/kotlin/",
-            "src/jsTest/kotlin/",
-            "src/jvmTest/kotlin/",
-            "src/realmTest/kotlin/",
-        ).joinToString(","))
-    }
+    property("sonar.tests", listOf(
+        "src/androidTest/kotlin/",
+        "src/commonTest/kotlin/",
+        "src/darwinTest/kotlin/",
+        "src/jsTest/kotlin/",
+        "src/jvmTest/kotlin/",
+        "src/realmTest/kotlin/",
+    ).joinToString(","))
 }

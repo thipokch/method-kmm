@@ -1,9 +1,11 @@
-name: Develop Environment
+name: Build + Analysis
 
 on:
   push:
     branches:
       - dev
+      - stg
+      - prd
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -11,15 +13,33 @@ concurrency:
 
 jobs:
 
-  build-darwin:
-    name: Gradle Build + Analysis Darwin
-    runs-on: macos-latest
-    #    if: ${{ !startsWith(github.event.head_commit.message, 'wip') }}
+  build:
+    strategy:
+      fail-fast: true
+      matrix:
+        include:
+          - os: macos-12
+            name: macOS
+            build-command: darwin:build${{ github.ref_name }} darwin:sonarqube
+            deploy-command: darwin:deploy${{ github.ref_name }}
+
+          - os: ubuntu-22.04
+            name: Ubuntu
+            build-command: build${{ github.ref_name }} sonarqube
+            deploy-command: deploy${{ github.ref_name }}
+
+    name: ${{ matrix.name }}
+    runs-on: ${{ matrix.os }}
     steps:
       - name: Checking out repo.
         uses: actions/checkout@v3
         with:
           fetch-depth: 0  # Deep Fetch
+
+      - name: Validate Gradle Wrapper
+        uses: gradle/wrapper-validation-action@v1
+
+      ##### CACHE #####
 
       - name: Cache SonarCloud packages
         uses: actions/cache@v3
@@ -28,7 +48,7 @@ jobs:
           key: ${{ runner.os }}-sonar
           restore-keys: ${{ runner.os }}-sonar
 
-      - name: Cache Konan
+      - name: Cache Kotlin Native (Konan)
         uses: actions/cache@v3
         with:
           path: ~/.konan
@@ -36,57 +56,63 @@ jobs:
           restore-keys: ${{ runner.os }}-konan-
 
       - name: Cache Swift
+        if: ${{ startsWith(runner.os, 'macos') }}
         uses: actions/cache@v3
         with:
           path: ~/Library/Developer/Xcode/DerivedData
           key: ${{ runner.os }}-spm-${{ hashFiles('**/Package.resolved') }}
           restore-keys: ${{ runner.os }}-spm-
 
+      ##### SETUP #####
+
+      - name: Setup Git
+        run: |
+          git config --global user.email "noreply@github.com"
+          git config --global user.name "GitHub"
+
       - name: Setup ruby
+        if: ${{ startsWith(runner.os, 'macos') }}
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: '3.0' # Not needed with a .ruby-version file
           bundler-cache: true # runs 'bundle install' and caches installed gems automatically
           working-directory: ${{ github.workspace }}/darwin
 
+      - name: Setup Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: temurin
+          java-version: 11
+
       - name: Setup sonarqube
         uses: warchant/setup-sonar-scanner@v3
 
-      - name: Setting up Gradle.
-        uses: ./.github/actions/setup
+      - name: Setup Gradle
+        uses: gradle/gradle-build-action@v2   # cache is automatically loaded
+
+      ##### TASKS #####
 
       - name: Gradle build
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}   # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SECRETS_PASSWORD: ${{ secrets.SECRETS_PASSWORD }}
           SECRETS_REPO: ${{ secrets.SECRETS_REPO }}
           GRGIT_USER: ${{ secrets.GRGIT_USER }}
-        run: ./gradlew assembleDev check sonarqube --scan
+        run: ./gradlew ${{ matrix.build-command }} --scan
 
       - name: Gradle deploy
         env:
           ASC_KEY_ID: ${{ secrets.ASC_KEY_ID }}
           ASC_ISSUER_ID: ${{ secrets.ASC_ISSUER_ID }}
           ASC_KEY_CONTENT: ${{ secrets.ASC_KEY_CONTENT }}
-        run: ./gradlew deployStg --scan
+        run: ./gradlew ${{ matrix.deploy-command }} --scan
 
-      - name: Upload IPA
-        uses: actions/upload-artifact@master
+      - name: Upload ${{ matrix.upload-artifact }}
+        uses: actions/upload-artifact@v3
         with:
-          name: darwin-ipa
-          path: darwin/build/outputs/ipa
-
-      - name: Upload APK
-        uses: actions/upload-artifact@master
-        with:
-          name: android-apk
-          path: android/build/outputs/apk
-
-      - name: Upload logs
-        if: ${{ always() }}
-        uses: actions/upload-artifact@master
-        with:
-          name: logs
+          if-no-files-found: ignore
           path: |
-            ~/Library/Logs/gym
+            ${{ github.workspace }}/darwin/build/outputs/ipa
+            ${{ github.workspace }}/darwin/build/outputs/logs
+            ${{ github.workspace }}/android/build/outputs/apk

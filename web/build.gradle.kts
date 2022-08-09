@@ -73,6 +73,24 @@ tasks {
     assembleDev.dependsOn(build)
     assembleStg.dependsOn(build)
     assemblePrd.dependsOn(build)
+
+    val buildDev by creating {
+        group = "build"
+        dependsOn(check)
+        dependsOn(assembleDev)
+    }
+
+    val buildStg by creating {
+        group = "build"
+        dependsOn(check)
+        dependsOn(assembleStg)
+    }
+
+    val buildPrd by creating {
+        group = "build"
+        dependsOn(check)
+        dependsOn(assemblePrd)
+    }
 }
 
 //
@@ -86,8 +104,8 @@ detekt {
     )
 }
 
-sonarqube {
-    properties {
+sonarqube.properties {
+
         property("sonar.projectName", "method.web")
         property("sonar.projectKey", "method.web")
         property("sonar.organization", "thipokch")
@@ -105,5 +123,4 @@ sonarqube {
         property("sonar.tests", listOf(
             "src/test/kotlin",
         ).joinToString(","))
-    }
 }
