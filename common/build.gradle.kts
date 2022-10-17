@@ -210,7 +210,7 @@ kotlin {
             jvmMain.dependsOn(this)
 
             dependencies {
-                implementation("io.realm.kotlin:library-base:1.0.1")
+                implementation("io.realm.kotlin:library-base:1.3.0")
             }
         }
 
